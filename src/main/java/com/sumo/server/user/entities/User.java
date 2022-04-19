@@ -19,17 +19,17 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="LOGIN_DETAILS")
+@Table(name = "LOGIN_DETAILS")
 public class User {
     @Id
-    @Column(name="USER_ID")
+    @Column(name = "USER_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name="USERNAME")
+    @Column(name = "USERNAME")
     private String username;
 
-    @Column(name="PASSWORD")
+    @Column(name = "PASSWORD")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

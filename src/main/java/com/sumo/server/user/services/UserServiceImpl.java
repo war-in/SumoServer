@@ -1,10 +1,10 @@
 package com.sumo.server.user.services;
 
+import com.sumo.server.user.entities.Role;
+import com.sumo.server.user.entities.User;
 import com.sumo.server.user.repos.PersonalDetailsRepository;
 import com.sumo.server.user.repos.RoleRepository;
 import com.sumo.server.user.repos.UserRepository;
-import com.sumo.server.user.entities.Role;
-import com.sumo.server.user.entities.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,17 +28,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final RoleRepository roleRepository;
     private final PersonalDetailsRepository personalDetailsRepository;
     private final PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        if(user==null){
+        if (user == null) {
             throw new UsernameNotFoundException(username);
-        }else {
+        } else {
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
             user.getRoles().forEach(role -> {
                 authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
             });
-            return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities);
+            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
         }
     }
 

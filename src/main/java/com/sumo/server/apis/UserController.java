@@ -44,6 +44,8 @@ public class UserController {
         userService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
     }
+
+
 }
 @Data
 class RoleToUserForm{
