@@ -6,21 +6,21 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Categories_at_competitions")
+@Table(name = "CATEGORIES_AT_COMPETITIONS")
 @Getter
 @Setter
 public class CategoryAtCompetition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_at_competition_id")
+    @Column(name = "CATEGORY_AT_COMPETITION_ID")
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "competition_id")
+    @JoinColumn(name = "COMPETITION_ID")
     private Competition competition;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 }

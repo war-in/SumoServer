@@ -5,33 +5,34 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Categories")
+@Table(name = "CATEGORIES")
 @Getter
 @Setter
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
+    @Column(name = "CATEGORY_ID")
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "age_category_id")
+    @JoinColumn(name = "AGE_CATEGORY_ID")
     private AgeCategory ageCategory;
 
-    @Column(name = "weight_category")
+    @Column(name = "WEIGHT_CATEGORY")
     private int weightCategory;
 
     @ManyToOne
-    @JoinColumn(name = "sex")
+    @JoinColumn(name = "SEX")
     private Sex sex;
 
-    @Column(name = "date")
+    @Column(name = "DATE")
     private LocalDate date;
 
     @OneToMany(mappedBy = "category")
-    private Set<CategoryAtCompetition> categoriesAtCompetition;
+    private Set<CategoryAtCompetition> categoriesAtCompetition = new LinkedHashSet<>();
 }

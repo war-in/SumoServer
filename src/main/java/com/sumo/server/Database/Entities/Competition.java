@@ -5,39 +5,40 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Competitions")
+@Table(name = "COMPETITIONS")
 @Getter
 @Setter
 public class Competition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "competition_id")
+    @Column(name = "COMPETITION_ID")
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "city_id")
+    @JoinColumn(name = "CITY_ID")
     private City city;
 
-    @Column(name = "start_date")
+    @Column(name = "START_DATE")
     private LocalDate startDate;
 
-    @Column(name = "end_date")
+    @Column(name = "END_DATE")
     private LocalDate endDate;
 
     @ManyToOne
-    @JoinColumn(name = "type")
+    @JoinColumn(name = "TYPE")
     private CompetitionType type;
 
-    @Column(name = "link_to_organisational_announcement")
+    @Column(name = "LINK_TO_ORGANISATIONAL_ANNOUNCEMENT")
     private String linkToOrganisationalAnnouncement;
 
     @OneToMany(mappedBy = "competition")
-    private Set<CategoryAtCompetition> categoriesAtCompetition;
+    private Set<CategoryAtCompetition> categoriesAtCompetition = new LinkedHashSet<>();
 }

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface CompetitionRepository extends JpaRepository<Competition, Integer> {
     List<Competition> findAllBy();
+
+    List<Competition> findCompetitionsByName(String name);
 }
