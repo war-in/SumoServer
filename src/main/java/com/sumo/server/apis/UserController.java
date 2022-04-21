@@ -1,9 +1,10 @@
 package com.sumo.server.apis;
 
-import com.sumo.server.user.entities.Role;
-import com.sumo.server.user.entities.User;
-import com.sumo.server.user.services.UserService;
-import lombok.Data;
+import com.sumo.server.userData.Role.Role;
+import com.sumo.server.userData.User.User;
+import com.sumo.server.userData.User.UserService;
+import com.sumo.server.apis.RoleToUserForm;
+import com.sumo.server.apis.PersonalDetailsToUserForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,10 +46,12 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/role/addpersonaldetailstouser")
+    public ResponseEntity<?> addPersonalDetailsToUser(@RequestBody PersonalDetailsToUserForm form){
+        userService.setUserPersonalDetails(form.getUsername(), form.getPersonalDetailsId());
+        return ResponseEntity.ok().build();
+    }
+
 
 }
-@Data
-class RoleToUserForm{
-    private String username;
-    private String roleName;
-}
+

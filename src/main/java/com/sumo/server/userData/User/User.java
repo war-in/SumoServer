@@ -1,29 +1,35 @@
-package com.sumo.server.user.entities;
+package com.sumo.server.userData.User;
 
+import com.sumo.server.userData.PersonalDetails.PersonalDetails;
+import com.sumo.server.userData.Role.Role;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "LOGIN_DETAILS")
 public class User {
     @Id
     @Column(name = "USER_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "USERNAME")
@@ -33,7 +39,12 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles = new LinkedList<>();
+    private Collection<Role> roles = new LinkedHashSet<>();
+
+
+    @OneToOne
+    @JoinColumn(name = "PERSONALDETAILS_ID", referencedColumnName = "ID")
+    private PersonalDetails personalDetails;
 
 
 }

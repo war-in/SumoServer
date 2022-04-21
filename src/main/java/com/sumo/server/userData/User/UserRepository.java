@@ -1,6 +1,5 @@
-package com.sumo.server.user.repos;
+package com.sumo.server.userData.User;
 
-import com.sumo.server.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

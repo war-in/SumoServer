@@ -1,10 +1,9 @@
-package com.sumo.server.user.services;
+package com.sumo.server.userData.User;
 
-import com.sumo.server.user.entities.Role;
-import com.sumo.server.user.entities.User;
-import com.sumo.server.user.repos.PersonalDetailsRepository;
-import com.sumo.server.user.repos.RoleRepository;
-import com.sumo.server.user.repos.UserRepository;
+import com.sumo.server.userData.PersonalDetails.PersonalDetails;
+import com.sumo.server.userData.PersonalDetails.PersonalDetailsRepository;
+import com.sumo.server.userData.Role.Role;
+import com.sumo.server.userData.Role.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -70,5 +69,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public void setUserPersonalDetails(String username, Long personalDetails) {
+        PersonalDetails personalDetails1 = personalDetailsRepository.getById(personalDetails);
+        User user = userRepository.findByUsername(username);
+        user.setPersonalDetails(personalDetails1);
+        userRepository.save(user);
+    }
+
+    @Override
+    public PersonalDetails savePersonalDetails(PersonalDetails personalDetails) {
+        return personalDetailsRepository.save(personalDetails);
     }
 }
