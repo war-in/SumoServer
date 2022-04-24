@@ -21,6 +21,7 @@ import javax.persistence.Table;
 @Table(name = "USER_ROLES")
 public class Role {
     @Id
+    @Column(name = "ROLE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name = "ROLE_NAME", unique = true)

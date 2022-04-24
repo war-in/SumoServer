@@ -43,7 +43,7 @@ public class User {
 
 
     @OneToOne
-    @JoinColumn(name = "PERSONALDETAILS_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "PERSONAL_DETAILS_ID", referencedColumnName = "ID")
     private PersonalDetails personalDetails;
 
 
