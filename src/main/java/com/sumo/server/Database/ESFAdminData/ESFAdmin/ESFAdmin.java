@@ -1,6 +1,7 @@
 package com.sumo.server.Database.ESFAdminData.ESFAdmin;
 
 import com.sumo.server.Database.ESFAdminData.PeriodOfOffice.PeriodOfOffice;
+import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import lombok.Getter;
 import lombok.Setter;
 

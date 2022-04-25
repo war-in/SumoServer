@@ -1,6 +1,5 @@
-package com.sumo.server.userData.PersonalDetails;
+package com.sumo.server.Database.userData.PersonalDetails;
 
-import com.sumo.server.userData.PersonalDetails.PersonalDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

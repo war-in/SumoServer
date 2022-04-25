@@ -1,9 +1,9 @@
-package com.sumo.server.userData.User;
+package com.sumo.server.Database.userData.User;
 
-import com.sumo.server.userData.PersonalDetails.PersonalDetails;
-import com.sumo.server.userData.PersonalDetails.PersonalDetailsRepository;
-import com.sumo.server.userData.Role.Role;
-import com.sumo.server.userData.Role.RoleRepository;
+import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
+import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsRepository;
+import com.sumo.server.Database.userData.Role.Role;
+import com.sumo.server.Database.userData.Role.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

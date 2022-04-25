@@ -3,6 +3,7 @@ package com.sumo.server.Database.NationalTeamAdminData.NationalTeamAdmin;
 import com.sumo.server.Database.CoachData.NationalTeamMembershipOfCoach.NationalTeamMembershipOfCoach;
 import com.sumo.server.Database.NationalTeamAdminData.NationalTeamMembershipOfAdmin.NationalTeamMembershipOfAdmin;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamAdmin.CompetitorRegistrationByNationalTeamAdmin;
+import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import lombok.Getter;
 import lombok.Setter;
 

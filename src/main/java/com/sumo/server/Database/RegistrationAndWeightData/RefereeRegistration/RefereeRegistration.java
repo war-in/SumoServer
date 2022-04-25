@@ -2,6 +2,7 @@ package com.sumo.server.Database.RegistrationAndWeightData.RefereeRegistration;
 
 import com.sumo.server.Database.CompetitionData.Competition.Competition;
 import com.sumo.server.Database.RefereeData.Referee.Referee;
+import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import lombok.Getter;
 import lombok.Setter;
 

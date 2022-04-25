@@ -4,6 +4,7 @@ import com.sumo.server.Database.CoachData.ClubMembershipOfCoach.ClubMembershipOf
 import com.sumo.server.Database.CoachData.DateOfReceivingClassOfCoach.DateOfReceivingClassOfCoach;
 import com.sumo.server.Database.CoachData.NationalTeamMembershipOfCoach.NationalTeamMembershipOfCoach;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamCoach.CompetitorRegistrationByNationalTeamCoach;
+import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import lombok.Getter;
 import lombok.Setter;
 

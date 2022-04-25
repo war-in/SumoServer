@@ -1,4 +1,4 @@
-package com.sumo.server.userData.Role;
+package com.sumo.server.Database.userData.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

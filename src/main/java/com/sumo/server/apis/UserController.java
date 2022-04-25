@@ -1,10 +1,8 @@
 package com.sumo.server.apis;
 
-import com.sumo.server.userData.Role.Role;
-import com.sumo.server.userData.User.User;
-import com.sumo.server.userData.User.UserService;
-import com.sumo.server.apis.RoleToUserForm;
-import com.sumo.server.apis.PersonalDetailsToUserForm;
+import com.sumo.server.Database.userData.Role.Role;
+import com.sumo.server.Database.userData.User.User;
+import com.sumo.server.Database.userData.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

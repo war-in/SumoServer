@@ -1,4 +1,4 @@
-package com.sumo.server.userData.User;
+package com.sumo.server.Database.userData.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

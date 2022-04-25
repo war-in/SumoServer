@@ -6,6 +6,7 @@ import com.sumo.server.Database.FightData.CompetitorInDraw.CompetitorInDraw;
 import com.sumo.server.Database.FightData.Fight.Fight;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamAdmin.CompetitorRegistrationByNationalTeamAdmin;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamCoach.CompetitorRegistrationByNationalTeamCoach;
+import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +25,9 @@ public class Competitor {
     @Column(name = "COMPETITOR_ID")
     private long id;
 
-    @OneToOne(mappedBy = "competitor")
-    private PersonalData personalData;
+    @OneToOne
+    @JoinColumn(name = "PERSONAL_DETAILS_ID")
+    private PersonalDetails personalDetails;
 
     @OneToMany(mappedBy = "competitor")
     private Set<ClubMembershipOfCompetitor> clubMembershipsOfCompetitor = new LinkedHashSet<>();
