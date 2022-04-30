@@ -21,7 +21,6 @@ import javax.persistence.Table;
 @Table(name = "PERSONAL_DETAILS")
 public class PersonalDetails {
     @Id
-    @Column(name = "PERSONAL_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
