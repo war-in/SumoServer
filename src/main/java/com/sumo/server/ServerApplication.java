@@ -1,9 +1,9 @@
 package com.sumo.server;
 
-import com.sumo.server.userData.PersonalDetails.PersonalDetails;
-import com.sumo.server.userData.Role.Role;
-import com.sumo.server.userData.User.User;
-import com.sumo.server.userData.User.UserService;
+import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
+import com.sumo.server.Database.userData.Role.Role;
+import com.sumo.server.Database.userData.User.User;
+import com.sumo.server.Database.userData.User.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

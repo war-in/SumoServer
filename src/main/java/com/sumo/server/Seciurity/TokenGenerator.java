@@ -2,8 +2,8 @@ package com.sumo.server.Seciurity;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.sumo.server.userData.Role.Role;
-import com.sumo.server.userData.User.User;
+import com.sumo.server.Database.userData.Role.Role;
+import com.sumo.server.Database.userData.User.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 
