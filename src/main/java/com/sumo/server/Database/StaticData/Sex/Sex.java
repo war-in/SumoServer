@@ -17,7 +17,4 @@ public class Sex {
     @Id
     @Column(name = "SEX")
     private String sex;
-
-    @OneToMany(mappedBy = "sex")
-    private Set<Category> categories = new LinkedHashSet<>();
 }

@@ -22,7 +22,4 @@ public class Country {
     @OneToMany(mappedBy = "country")
     private Set<City> cities = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "country")
-    private NationalTeam nationalTeam;
-
 }

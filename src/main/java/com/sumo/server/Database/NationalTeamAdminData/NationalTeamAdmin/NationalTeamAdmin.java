@@ -25,10 +25,4 @@ public class NationalTeamAdmin {
     @OneToOne
     @JoinColumn(name = "PERSONAL_DETAILS_ID")
     private PersonalDetails personalDetails;
-
-    @OneToMany(mappedBy = "nationalTeamAdmin")
-    private Set<NationalTeamMembershipOfAdmin> nationalTeamMembershipsOfAdmin = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "nationalTeamAdmin")
-    private Set<CompetitorRegistrationByNationalTeamAdmin> competitorRegistrations = new LinkedHashSet<>();
 }

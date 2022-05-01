@@ -35,7 +35,4 @@ public class Category {
 
     @Column(name = "DATE")
     private LocalDate date;
-
-    @OneToMany(mappedBy = "category")
-    private Set<CategoryAtCompetition> categoriesAtCompetition = new LinkedHashSet<>();
 }

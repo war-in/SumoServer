@@ -26,7 +26,4 @@ public class ClassOfCoach {
     @ManyToOne
     @JoinColumn(name = "REGION")
     private Region region;
-
-    @OneToMany(mappedBy = "classOfCoach")
-    private Set<DateOfReceivingClassOfCoach> dateOfReceivingClassesOfCoaches = new LinkedHashSet<>();
 }

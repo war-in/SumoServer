@@ -33,8 +33,4 @@ public class AgeCategory {
     @ManyToOne
     @JoinColumn(name = "REGION")
     private Region region;
-
-    @OneToMany(mappedBy = "ageCategory")
-    private Set<Category> categories = new LinkedHashSet<>();
-
 }

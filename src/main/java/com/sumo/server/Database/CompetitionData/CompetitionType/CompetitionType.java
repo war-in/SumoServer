@@ -17,7 +17,4 @@ public class CompetitionType {
     @Id
     @Column(name = "TYPE")
     private String type;
-
-    @OneToMany(mappedBy = "type")
-    private Set<Competition> competitions = new LinkedHashSet<>();
 }

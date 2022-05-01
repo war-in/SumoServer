@@ -36,7 +36,4 @@ public class CompetitorRegistrationByNationalTeamAdmin {
 
     @Column(name = "IS_ACCEPTED_BY_ESF_ADMIN")
     private boolean isAcceptedByESFAdmin;
-
-    @OneToOne(mappedBy = "registration")
-    private WeighedCompetitor weighedCompetitor;
 }

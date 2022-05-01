@@ -23,7 +23,4 @@ public class ESFAdmin {
     @OneToOne
     @JoinColumn(name = "PERSONAL_DETAILS_ID")
     private PersonalDetails personalDetails;
-
-    @OneToMany(mappedBy = "esfAdmin")
-    private Set<PeriodOfOffice> periodsOfOffice = new LinkedHashSet<>();
 }

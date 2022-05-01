@@ -30,13 +30,4 @@ public class CategoryAtCompetition {
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
-
-    @OneToMany(mappedBy = "categoryAtCompetition")
-    private Set<Draw> draws = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "categoryAtCompetition")
-    private Set<CompetitorRegistrationByNationalTeamCoach> competitorRegistrationsByNationalTeamsCoaches = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "categoryAtCompetition")
-    private Set<CompetitorRegistrationByNationalTeamAdmin> competitorRegistrationsByNationalTeamsAdmins = new LinkedHashSet<>();
 }

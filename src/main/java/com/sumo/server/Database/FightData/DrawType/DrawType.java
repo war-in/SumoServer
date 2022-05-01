@@ -26,7 +26,4 @@ public class DrawType {
     @ManyToOne
     @JoinColumn(name = "REGION")
     private Region region;
-
-    @OneToMany(mappedBy = "drawType")
-    private Set<Draw> draws = new LinkedHashSet<>();
 }

@@ -40,13 +40,4 @@ public class Competition {
     @ManyToOne
     @JoinColumn(name = "TYPE")
     private CompetitionType type;
-
-    @OneToMany(mappedBy = "competition")
-    private Set<CategoryAtCompetition> categoriesAtCompetition = new LinkedHashSet<>();
-
-    @OneToOne(mappedBy = "competition")
-    private CompetitionDetails competitionDetails;
-
-    @OneToMany(mappedBy = "competition")
-    private Set<RefereeRegistration> refereesRegistrations = new LinkedHashSet<>();
 }

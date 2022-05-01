@@ -26,7 +26,4 @@ public class Club {
     @ManyToOne
     @JoinColumn(name = "CITY_ID")
     private City city;
-
-    @OneToMany(mappedBy = "club")
-    private Set<ClubMembershipOfCompetitor> clubMembershipsOfCompetitors = new LinkedHashSet<>();
 }

@@ -26,16 +26,4 @@ public class Coach {
     @OneToOne
     @JoinColumn(name = "PERSONAL_DETAILS_ID")
     private PersonalDetails personalDetails;
-
-    @OneToMany(mappedBy = "coach")
-    private Set<ClubMembershipOfCoach> clubMembershipsOfCoach = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "coach")
-    private Set<NationalTeamMembershipOfCoach> nationalTeamMembershipsOfCoach = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "coach")
-    private Set<DateOfReceivingClassOfCoach> datesOfReceivingClassesOfCoach = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "nationalTeamCoach")
-    private Set<CompetitorRegistrationByNationalTeamCoach> competitorRegistrations = new LinkedHashSet<>();
 }

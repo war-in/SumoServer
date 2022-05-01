@@ -27,7 +27,4 @@ public class ClassOfReferee {
     @ManyToOne
     @JoinColumn(name = "REGION")
     private Region region;
-
-    @OneToMany(mappedBy = "classOfReferee")
-    private Set<DateOfReceivingClassOfReferee> dateOfReceivingClassesOfReferees = new LinkedHashSet<>();
 }

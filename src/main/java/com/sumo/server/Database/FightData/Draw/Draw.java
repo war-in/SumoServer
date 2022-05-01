@@ -29,10 +29,4 @@ public class Draw {
     @ManyToOne
     @JoinColumn(name = "DRAW_TYPE_ID")
     private DrawType drawType;
-
-    @OneToMany(mappedBy = "draw")
-    private Set<CompetitorInDraw> competitorsInDraw = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "draw")
-    private Set<Fight> fights = new LinkedHashSet<>();
 }

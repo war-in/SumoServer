@@ -28,25 +28,4 @@ public class Competitor {
     @OneToOne
     @JoinColumn(name = "PERSONAL_DETAILS_ID")
     private PersonalDetails personalDetails;
-
-    @OneToMany(mappedBy = "competitor")
-    private Set<ClubMembershipOfCompetitor> clubMembershipsOfCompetitor = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "competitor")
-    private Set<NationalTeamMembershipOfCompetitor> nationalTeamMembershipsOfCompetitor = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "competitor")
-    private Set<CompetitorInDraw> competitorInDraws = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "firstCompetitor")
-    private Set<Fight> fightsAsFirstCompetitor = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "secondCompetitor")
-    private Set<Fight> fightsAsSecondCompetitor = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "competitor")
-    private Set<CompetitorRegistrationByNationalTeamCoach> registrationsByNationalTeamCoach = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "competitor")
-    private Set<CompetitorRegistrationByNationalTeamAdmin> registrationsByNationalTeamAdmin = new LinkedHashSet<>();
 }

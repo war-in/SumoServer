@@ -20,16 +20,4 @@ public class Region {
     @Id
     @Column(name = "REGION")
     private String region;
-
-    @OneToMany(mappedBy = "region")
-    private Set<AgeCategory> ageCategories = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "region")
-    private Set<DrawType> drawTypes = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "region")
-    private Set<ClassOfCoach> classesOfCoaches = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "region")
-    private Set<ClassOfReferee> classesOfReferees = new LinkedHashSet<>();
 }

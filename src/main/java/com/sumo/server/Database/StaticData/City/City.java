@@ -26,7 +26,4 @@ public class City {
     @ManyToOne
     @JoinColumn(name = "COUNTRY")
     private Country country;
-
-    @OneToMany(mappedBy = "city")
-    private Set<Competition> competitions = new LinkedHashSet<>();
 }

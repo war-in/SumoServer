@@ -27,13 +27,4 @@ public class Referee {
     @OneToOne
     @JoinColumn(name = "PERSONAL_DETAILS_ID")
     private PersonalDetails personalDetails;
-
-    @OneToMany(mappedBy = "referee")
-    private Set<DateOfReceivingClassOfReferee> datesOfReceivingClassesOfReferee = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "referee")
-    private Set<NationalTeamMembershipOfReferee> nationalTeamMembershipsOfReferee = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "referee")
-    private Set<RefereeRegistration> refereeRegistrations = new LinkedHashSet<>();
 }

@@ -26,16 +26,4 @@ public class NationalTeam {
     @OneToOne
     @JoinColumn(name = "COUNTRY")
     private Country country;
-
-    @OneToMany(mappedBy = "nationalTeam")
-    private Set<NationalTeamMembershipOfCompetitor> nationalTeamMembershipsOfCompetitors = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "nationalTeam")
-    private Set<NationalTeamMembershipOfCoach> nationalTeamMembershipsOfCoaches = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "nationalTeam")
-    private Set<NationalTeamMembershipOfReferee> nationalTeamMembershipsOfReferees = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "nationalTeam")
-    private Set<NationalTeamMembershipOfAdmin> nationalTeamMembershipsOfAdmins = new LinkedHashSet<>();
 }
