@@ -40,4 +40,8 @@ public class Competition {
     @ManyToOne
     @JoinColumn(name = "TYPE")
     private CompetitionType type;
+
+    @OneToOne
+    @JoinColumn(name = "COMPETITION_DETAILS_ID")
+    private CompetitionDetails details;
 }
