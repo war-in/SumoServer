@@ -1,0 +1,62 @@
+[{
+  "id": 1,
+  "name": "Mistrzostwa Poslki seniorów 2022",
+  "city": null,
+  "startDate": "2018-03-01",
+  "endDate": "2015-03-01",
+  "type": {
+    "type": "Mistrzostwa Polski"
+  },
+  "details": {
+    "id": 1,
+    "competitorsRegistrationStartDate": "2015-03-01",
+    "competitorsRegistrationEndDate": "2015-03-01",
+    "refereesRegistrationStartDate": "2015-03-01",
+    "refereesRegistrationEndDate": "2018-03-01",
+    "linkToOrganisationalAnnouncement": "String",
+    "ageCategories":null,
+    "nationalTeams": null
+  }
+},
+  {
+    "id": 2,
+    "name": "Mistrzostwa Poslki seniorów 2023",
+    "city": null,
+    "startDate": "2018-03-01",
+    "endDate": "2015-03-01",
+    "type": {
+      "type": "Mistrzostwa Polski"
+    },
+    "details": {
+      "id": 2,
+      "competitorsRegistrationStartDate": "2015-03-01",
+      "competitorsRegistrationEndDate": "2015-03-01",
+      "refereesRegistrationStartDate": "2015-03-01",
+      "refereesRegistrationEndDate": "2018-03-01",
+      "linkToOrganisationalAnnouncement": "String",
+      "ageCategories":null,
+      "nationalTeams": null
+    }
+  },
+  {
+    "id": 3,
+    "name": "Mistrzostwa Poslki seniorów 2024",
+    "city": null,
+    "startDate": "2018-03-01",
+    "endDate": "2015-03-01",
+    "type": {
+      "type": "Mistrzostwa Polski"
+    },
+    "details": {
+      "id": 3,
+      "competitorsRegistrationStartDate": "2015-03-01",
+      "competitorsRegistrationEndDate": "2015-03-01",
+      "refereesRegistrationStartDate": "2015-03-01",
+      "refereesRegistrationEndDate": "2018-03-01",
+      "linkToOrganisationalAnnouncement": "String",
+      "ageCategories":null,
+      "nationalTeams": null
+    }
+  }
+
+]

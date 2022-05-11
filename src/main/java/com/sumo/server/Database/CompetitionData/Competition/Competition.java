@@ -1,17 +1,22 @@
 package com.sumo.server.Database.CompetitionData.Competition;
 
-import com.sumo.server.Database.CompetitionData.CategoryAtCompetition.CategoryAtCompetition;
 import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
-import com.sumo.server.Database.RegistrationAndWeightData.RefereeRegistration.RefereeRegistration;
-import com.sumo.server.Database.StaticData.City.City;
 import com.sumo.server.Database.CompetitionData.CompetitionType.CompetitionType;
+import com.sumo.server.Database.StaticData.City.City;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "COMPETITIONS")
@@ -44,4 +49,17 @@ public class Competition {
     @OneToOne
     @JoinColumn(name = "COMPETITION_DETAILS_ID")
     private CompetitionDetails details;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Competition that = (Competition) o;
+        return Objects.equals(getName(), that.getName()) && Objects.equals(getCity(), that.getCity()) && Objects.equals(getStartDate(), that.getStartDate()) && Objects.equals(getEndDate(), that.getEndDate()) && Objects.equals(getType(), that.getType()) && Objects.equals(getDetails(), that.getDetails());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getCity(), getStartDate(), getEndDate(), getType(), getDetails());
+    }
 }

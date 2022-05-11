@@ -25,16 +25,26 @@ public class CompetitionController {
     final CompetitionService competitionService;
 
     @GetMapping()
-    public ResponseEntity<List<Competition>> getCompetition(){
+    public ResponseEntity<List<Competition>> getCompetitions(){
         return ResponseEntity.ok().body(competitionService.getAllCompetitions());
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Role> saveRole(@RequestBody Competition competition){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
+    public ResponseEntity<Competition> saveCompetition(@RequestBody Competition competition) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competition/save").toUriString());
         CompetitionDetails competitionDetails = competitionService.saveCompetitionDetails(competition.getDetails());
         CompetitionType competitionType = competitionService.saveCompetitionType(competition.getType());
-        competitionService.addDetailsToCompetitions(competition,competitionDetails,competitionType);
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(competitionService.addDetailsToCompetitions(competition, competitionDetails, competitionType));
+
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<Competition> editCompetition(@RequestBody Competition competition) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competition/update").toUriString());
+        return ResponseEntity.created(uri).body(competitionService.updateCompetition(competition));
+    }
+
+
+
+
 }

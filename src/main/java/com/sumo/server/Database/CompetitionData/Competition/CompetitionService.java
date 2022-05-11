@@ -11,11 +11,11 @@ import java.util.List;
 public interface CompetitionService {
     boolean addDetailsToCompetitions(Competition competition, CompetitionDetails competitionDetails);
 
-    boolean addDetailsToCompetitions(Competition competition, CompetitionDetails competitionDetails, CompetitionType competitionType);
-
-    void addCategoriesToCompetitions(List<Category> categoryList, Competition competition);
-    boolean addAgeCategoriesToCompetition(List<AgeCategory> ageCategories, Competition competition);
-    boolean addRepresentationsToCompetitions(List<NationalTeam> ageCategories, Competition competition);
+    Competition addDetailsToCompetitions(Competition competition, CompetitionDetails competitionDetails, CompetitionType competitionType);
+    Competition updateCompetition(Competition competition);
+    Competition addCategoriesToCompetitions(List<Category> categoryList, Competition competition);
+    Competition addAgeCategoriesToCompetition(List<AgeCategory> ageCategories, Competition competition);
+    Competition addRepresentationsToCompetitions(List<NationalTeam> ageCategories, Competition competition);
     CompetitionDetails saveCompetitionDetails(CompetitionDetails competitionDetails);
     CompetitionType saveCompetitionType(CompetitionType competitionType);
     Competition saveCompetition(Competition competition);

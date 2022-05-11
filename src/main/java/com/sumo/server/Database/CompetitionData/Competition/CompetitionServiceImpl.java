@@ -44,7 +44,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         return result != null;
     }
     @Override
-    public boolean addDetailsToCompetitions(Competition competition, CompetitionDetails competitionDetails,CompetitionType competitionType) {
+    public Competition addDetailsToCompetitions(Competition competition, CompetitionDetails competitionDetails,CompetitionType competitionType) {
         competition.setType(competitionType);
         competition.setDetails(competitionDetails);
         Competition result = null;
@@ -53,11 +53,11 @@ public class CompetitionServiceImpl implements CompetitionService {
         } catch (Exception error) {
             log.error(error.getMessage());
         }
-        return result != null;
+        return result;
     }
 
     @Override
-    public void addCategoriesToCompetitions(List<Category> categoryList, Competition competition) {
+    public Competition addCategoriesToCompetitions(List<Category> categoryList, Competition competition) {
         List<CategoryAtCompetition> categoryAtCompetitions = new LinkedList<>();
         categoryList.forEach(category -> {
             CategoryAtCompetition categoryAtCompetition = new CategoryAtCompetition(null, competition, category);
@@ -68,39 +68,47 @@ public class CompetitionServiceImpl implements CompetitionService {
                 log.error(exception.getMessage());
             }
         });
+        return competitionRepository.findById(competition.getId());
     }
 
     @Override
-    public boolean addAgeCategoriesToCompetition(List<AgeCategory> ageCategories, Competition competition) {
+    public Competition addAgeCategoriesToCompetition(List<AgeCategory> ageCategories, Competition competition) {
         Competition competitionFromDb = competitionRepository.findById(competition.getId());
         CompetitionDetails competitionDetails = competitionFromDb.getDetails();
         competitionDetails.getAgeCategories().addAll(ageCategories);
-        CompetitionDetails result = null;
         try {
-            result = competitionDetailsRepository.save(competitionDetails);
+            competitionDetailsRepository.save(competitionDetails);
         } catch (Exception exception) {
             log.error(exception.getMessage());
         }
-        return result != null;
+        return competitionRepository.findById(competition.getId());
     }
 
     @Override
-    public boolean addRepresentationsToCompetitions(List<NationalTeam> nationalTeams, Competition competition) {
+    public Competition addRepresentationsToCompetitions(List<NationalTeam> nationalTeams, Competition competition) {
         Competition competitionFromDb = competitionRepository.findById(competition.getId());
         CompetitionDetails competitionDetails = competitionFromDb.getDetails();
         competitionDetails.getNationalTeams().addAll(nationalTeams);
-        CompetitionDetails result = null;
         try {
-            result = competitionDetailsRepository.save(competitionDetails);
+            competitionDetailsRepository.save(competitionDetails);
         } catch (Exception exception) {
             log.error(exception.getMessage());
         }
-        return result != null;
+        return competitionRepository.findById(competition.getId());
     }
 
     @Override
     public Competition saveCompetition(Competition competition) {
         return competitionRepository.save(competition);
+    }
+
+    @Override
+    public Competition updateCompetition(Competition competition) {
+        if( competition.getDetails() != null){
+            competitionDetailsRepository.save(competition.getDetails());
+        }
+        return competitionRepository.save(competition);
+
     }
 
     @Override

@@ -17,4 +17,6 @@ public interface CompetitionRepository extends JpaRepository<Competition, Intege
 
     Competition findCompetitionByCityAndStartDateAndEndDateAndName(City city, LocalDate startDate, LocalDate endDate, String name);
 
+    Competition removeById(Long id);
+
 }
