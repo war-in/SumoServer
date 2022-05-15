@@ -19,4 +19,6 @@ public interface CompetitionRepository extends JpaRepository<Competition, Intege
 
     Competition removeById(Long id);
 
+    Long deleteById(Long id);
+
 }

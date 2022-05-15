@@ -125,4 +125,10 @@ public class CompetitionServiceImpl implements CompetitionService {
     public CompetitionType saveCompetitionType(CompetitionType competitionType) {
         return competitionTypeRepository.save(competitionType);
     }
+
+    @Override
+    public Long deleteCompetition(Competition competition) {
+        competitionDetailsRepository.deleteById(competition.getDetails().getId());
+        return competitionRepository.deleteById(competition.getId());
+    }
 }

@@ -7,7 +7,9 @@ import com.sumo.server.Database.CompetitionData.CompetitionType.CompetitionType;
 import com.sumo.server.Database.userData.Role.Role;
 import com.sumo.server.Database.userData.User.User;
 import lombok.RequiredArgsConstructor;
+import org.glassfish.jersey.server.Uri;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +46,12 @@ public class CompetitionController {
         return ResponseEntity.created(uri).body(competitionService.updateCompetition(competition));
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteCompetition(@RequestBody Competition competition){
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competition/delete").toUriString());
+        competitionService.deleteCompetition(competition);
+        return ResponseEntity.ok().build();
+    }
 
 
 

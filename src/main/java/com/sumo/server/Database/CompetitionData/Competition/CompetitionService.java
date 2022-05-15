@@ -19,5 +19,6 @@ public interface CompetitionService {
     CompetitionDetails saveCompetitionDetails(CompetitionDetails competitionDetails);
     CompetitionType saveCompetitionType(CompetitionType competitionType);
     Competition saveCompetition(Competition competition);
+    Long deleteCompetition(Competition competition);
     List<Competition> getAllCompetitions();
 }

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CompetitionDetailsRepository extends JpaRepository<CompetitionDetails, Integer> {
     List<CompetitionDetails> findAllBy();
-
+    Long deleteById(Long id);
 }
