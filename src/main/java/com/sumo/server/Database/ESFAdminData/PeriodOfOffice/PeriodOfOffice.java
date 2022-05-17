@@ -22,9 +22,9 @@ public class PeriodOfOffice {
     @JoinColumn(name = "ESF_ADMIN_ID")
     private ESFAdmin esfAdmin;
 
-    @Column(name = "START")
+    @Column(name = "START_DATE")
     private LocalDate start;
 
-    @Column(name = "END")
+    @Column(name = "END_DATE")
     private LocalDate end;
 }

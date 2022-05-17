@@ -9,4 +9,5 @@ import java.util.List;
 public interface ClubMembershipOfCompetitorService {
 
     List<Competitor> getCompetitorsByCurrentClub(Club club);
+    List<ClubMembershipOfCompetitor> getAll();
 }
