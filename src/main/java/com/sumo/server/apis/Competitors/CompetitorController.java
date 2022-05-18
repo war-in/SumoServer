@@ -15,11 +15,10 @@ import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,19 @@ public class CompetitorController {
     final PersonalDetailsService personalDetailsService;
     final NationalTeamMembershipOfCompetitorService nationalTeamMembershipOfCompetitorService;
     final ClubMembershipOfCompetitorService clubMembershipOfCompetitorService;
-    final ClubMembershipOfCompetitorRepository clubMembershipOfCompetitorRepository;
+
+    //this needs competitor with personal details
+    @PostMapping("/save")
+    public ResponseEntity<Competitor> saveCompetitor(@RequestBody Competitor competitor) {
+        return ResponseEntity.ok().body(competitorService.save(competitor));
+    }
+
+    //this needs competitor with id and new status
+    @PostMapping("/change-status")
+    public ResponseEntity<Competitor> deleteCompetitor(@RequestBody Competitor competitor) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competitor/change-status").toUriString());
+        return ResponseEntity.created(uri).body(competitorService.changeCompetitorsStatus(competitor));
+    }
 
     @GetMapping()
     public ResponseEntity<List<Competitor>> getCompetitors(){
@@ -45,25 +56,21 @@ public class CompetitorController {
         return ResponseEntity.ok().body(competitors);
     }
 
-    @GetMapping("/{nationalTeam}")
+    @GetMapping("/nationalTeam/{nationalTeam}")
     public ResponseEntity<List<Competitor>> getCompetitorsByCurrentNationalTeam(@PathVariable NationalTeam nationalTeam) {
         return ResponseEntity.ok().body(nationalTeamMembershipOfCompetitorService.getCompetitorsFromCurrentNationalTeam(nationalTeam));
     }
 
-    @GetMapping("/{club}")
+    @GetMapping("/club/{club}")
     public ResponseEntity<List<Competitor>> getCompetitorsByCurrentClub(@PathVariable Club club) {
         return ResponseEntity.ok().body(clubMembershipOfCompetitorService.getCompetitorsByCurrentClub(club));
     }
 
-    @GetMapping("/{country}")
+    @GetMapping("/country/{country}")
     public ResponseEntity<List<Competitor>> getCompetitorsByCountry(@PathVariable Country country) {
-        List<ClubMembershipOfCompetitor> allClubMembershipsOfCompetitors = clubMembershipOfCompetitorRepository.getAll();
-        List<Competitor> competitorsFromCountry = new ArrayList<>();
+        List<ClubMembershipOfCompetitor> allClubMembershipsOfCompetitors = clubMembershipOfCompetitorService.getAll();
 
-        for(ClubMembershipOfCompetitor clubMembershipOfCompetitor: allClubMembershipsOfCompetitors) {
-            if(clubMembershipOfCompetitor.getClub().getCity().getCountry()== country)
-                competitorsFromCountry.add(clubMembershipOfCompetitor.getCompetitor());
-        }
+        List<Competitor> competitorsFromCountry = competitorService.getCompetitorsByCountry(country, allClubMembershipsOfCompetitors);
 
         return ResponseEntity.ok().body(competitorsFromCountry);
     }

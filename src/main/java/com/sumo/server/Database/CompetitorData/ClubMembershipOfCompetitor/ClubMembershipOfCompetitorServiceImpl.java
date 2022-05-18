@@ -35,4 +35,9 @@ public class ClubMembershipOfCompetitorServiceImpl implements ClubMembershipOfCo
 
         return currentClub;
     }
+
+    @Override
+    public List<ClubMembershipOfCompetitor> getAll() {
+        return clubMembershipOfCompetitorRepository.findAll();
+    }
 }

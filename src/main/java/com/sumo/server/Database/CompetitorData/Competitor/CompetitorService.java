@@ -1,5 +1,7 @@
 package com.sumo.server.Database.CompetitorData.Competitor;
 
+import com.sumo.server.Database.CompetitorData.ClubMembershipOfCompetitor.ClubMembershipOfCompetitor;
+import com.sumo.server.Database.StaticData.Country.Country;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 
@@ -9,5 +11,9 @@ public interface CompetitorService {
 
     List<Competitor> getAllCompetitors();
     List<Competitor> getCompetitorsByPersonalDetails(List<PersonalDetails> personalDetails);
-    List<Competitor> getCompetitorsByNationalTeam(NationalTeam nationalTeam);
+    List<Competitor> getCompetitorsByCountry(Country country, List<ClubMembershipOfCompetitor> allClubMembershipsOfCompetitors);
+
+    Competitor save(Competitor competitor);
+
+    Competitor changeCompetitorsStatus(Competitor competitor);
 }

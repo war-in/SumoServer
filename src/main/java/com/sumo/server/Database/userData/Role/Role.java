@@ -24,6 +24,7 @@ public class Role {
     @Column(name = "ROLE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     @Column(name = "ROLE_NAME", unique = true)
     private String roleName;
 
