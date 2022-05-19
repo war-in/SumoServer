@@ -9,16 +9,25 @@ import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import java.util.List;
 
 public interface CompetitionService {
-    boolean addDetailsToCompetitions(Competition competition, CompetitionDetails competitionDetails);
+    boolean addDetailsToCompetition(Competition competition, CompetitionDetails competitionDetails);
 
-    Competition addDetailsToCompetitions(Competition competition, CompetitionDetails competitionDetails, CompetitionType competitionType);
+    Competition addDetailsToCompetition(Competition competition, CompetitionDetails competitionDetails, CompetitionType competitionType);
+
     Competition updateCompetition(Competition competition);
-    Competition addCategoriesToCompetitions(List<Category> categoryList, Competition competition);
+
+    Competition addCategoriesToCompetition(List<Category> categoryList, Competition competition);
+
     Competition addAgeCategoriesToCompetition(List<AgeCategory> ageCategories, Competition competition);
-    Competition addRepresentationsToCompetitions(List<NationalTeam> ageCategories, Competition competition);
+
+    Competition addRepresentationsToCompetition(List<NationalTeam> ageCategories, Competition competition);
+
     CompetitionDetails saveCompetitionDetails(CompetitionDetails competitionDetails);
+
     CompetitionType saveCompetitionType(CompetitionType competitionType);
+
     Competition saveCompetition(Competition competition);
+
     Long deleteCompetition(Competition competition);
+
     List<Competition> getAllCompetitions();
 }

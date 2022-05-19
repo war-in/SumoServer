@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,22 +52,23 @@ public class CompetitionControllerTest {
 
     @Test
     public void testGetCompetitions() throws Exception {
+//        prepare
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
 
+//        act
         List<Competition> competitions = objectMapper.readValue(
             new File("src/main/resources/testing/Competition/CompetitionsList.json"), objectMapper.getTypeFactory().constructCollectionType(List.class, Competition.class));
         when(competitionService.getAllCompetitions()).thenReturn(competitions);
         ResponseEntity<List<Competition>> competitionList = competitionController.getCompetitions();
-        Assertions.assertEquals(competitionList.getStatusCode(), HttpStatus.OK);
         List<Competition> responseBody = competitionList.getBody();
-        assert responseBody != null;
         Iterator<Competition> firstIterator = responseBody.stream().iterator();
+
+//        test
+        Assertions.assertEquals(competitionList.getStatusCode(), HttpStatus.OK);
+        assert responseBody != null;
         assert competitions.stream().allMatch(o -> firstIterator.hasNext() && o.equals(firstIterator.next())) && !firstIterator.hasNext();
     }
-
-
-
 
 
 }

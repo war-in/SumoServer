@@ -33,7 +33,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     final CompetitionTypeRepository competitionTypeRepository;
 
     @Override
-    public boolean addDetailsToCompetitions(Competition competition, CompetitionDetails competitionDetails) {
+    public boolean addDetailsToCompetition(Competition competition, CompetitionDetails competitionDetails) {
         competition.setDetails(competitionDetails);
         Competition result = null;
         try {
@@ -44,7 +44,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         return result != null;
     }
     @Override
-    public Competition addDetailsToCompetitions(Competition competition, CompetitionDetails competitionDetails,CompetitionType competitionType) {
+    public Competition addDetailsToCompetition(Competition competition, CompetitionDetails competitionDetails, CompetitionType competitionType) {
         competition.setType(competitionType);
         competition.setDetails(competitionDetails);
         Competition result = null;
@@ -57,7 +57,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public Competition addCategoriesToCompetitions(List<Category> categoryList, Competition competition) {
+    public Competition addCategoriesToCompetition(List<Category> categoryList, Competition competition) {
         List<CategoryAtCompetition> categoryAtCompetitions = new LinkedList<>();
         categoryList.forEach(category -> {
             CategoryAtCompetition categoryAtCompetition = new CategoryAtCompetition(null, competition, category);
@@ -85,7 +85,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public Competition addRepresentationsToCompetitions(List<NationalTeam> nationalTeams, Competition competition) {
+    public Competition addRepresentationsToCompetition(List<NationalTeam> nationalTeams, Competition competition) {
         Competition competitionFromDb = competitionRepository.findById(competition.getId());
         CompetitionDetails competitionDetails = competitionFromDb.getDetails();
         competitionDetails.getNationalTeams().addAll(nationalTeams);
@@ -118,12 +118,22 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDetails saveCompetitionDetails(CompetitionDetails competitionDetails) {
-        return competitionDetailsRepository.save(competitionDetails);
+        try {
+            return competitionDetailsRepository.save(competitionDetails);
+        } catch (Exception error) {
+            log.error(error.getMessage());
+        }
+        return null;
     }
 
     @Override
     public CompetitionType saveCompetitionType(CompetitionType competitionType) {
-        return competitionTypeRepository.save(competitionType);
+        try {
+            return competitionTypeRepository.save(competitionType);
+        } catch (Exception error) {
+            log.error(error.getMessage());
+        }
+        return null;
     }
 
     @Override

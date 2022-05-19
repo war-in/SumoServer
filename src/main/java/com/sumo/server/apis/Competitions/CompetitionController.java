@@ -4,10 +4,7 @@ import com.sumo.server.Database.CompetitionData.Competition.Competition;
 import com.sumo.server.Database.CompetitionData.Competition.CompetitionService;
 import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
 import com.sumo.server.Database.CompetitionData.CompetitionType.CompetitionType;
-import com.sumo.server.Database.userData.Role.Role;
-import com.sumo.server.Database.userData.User.User;
 import lombok.RequiredArgsConstructor;
-import org.glassfish.jersey.server.Uri;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +24,7 @@ public class CompetitionController {
     final CompetitionService competitionService;
 
     @GetMapping()
-    public ResponseEntity<List<Competition>> getCompetitions(){
+    public ResponseEntity<List<Competition>> getCompetitions() {
         return ResponseEntity.ok().body(competitionService.getAllCompetitions());
     }
 
@@ -36,7 +33,7 @@ public class CompetitionController {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competition/save").toUriString());
         CompetitionDetails competitionDetails = competitionService.saveCompetitionDetails(competition.getDetails());
         CompetitionType competitionType = competitionService.saveCompetitionType(competition.getType());
-        return ResponseEntity.created(uri).body(competitionService.addDetailsToCompetitions(competition, competitionDetails, competitionType));
+        return ResponseEntity.created(uri).body(competitionService.addDetailsToCompetition(competition, competitionDetails, competitionType));
 
     }
 
@@ -47,12 +44,10 @@ public class CompetitionController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteCompetition(@RequestBody Competition competition){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competition/delete").toUriString());
+    public ResponseEntity<?> deleteCompetition(@RequestBody Competition competition) {
         competitionService.deleteCompetition(competition);
         return ResponseEntity.ok().build();
     }
-
 
 
 }
