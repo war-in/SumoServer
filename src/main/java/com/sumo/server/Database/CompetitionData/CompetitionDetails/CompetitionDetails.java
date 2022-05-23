@@ -1,11 +1,19 @@
 package com.sumo.server.Database.CompetitionData.CompetitionDetails;
 
-import com.sumo.server.Database.CompetitionData.Competition.Competition;
+import com.sumo.server.Database.CompetitionData.AgeCategory.AgeCategory;
+import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "COMPETITIONS_DETAILS")
@@ -16,11 +24,7 @@ public class CompetitionDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "COMPETITION_DETAILS_ID")
-    private long id;
-
-    @OneToOne
-    @JoinColumn(name = "COMPETITION_ID")
-    private Competition competition;
+    private Long id;
 
     @Column(name = "COMPETITORS_REGISTRATION_START_DATE")
     private LocalDate competitorsRegistrationStartDate;
@@ -36,5 +40,11 @@ public class CompetitionDetails {
 
     @Column(name = "LINK_TO_ORGANISATIONAL_ANNOUNCEMENT")
     private String linkToOrganisationalAnnouncement;
+
+    @ManyToMany
+    private List<AgeCategory> ageCategories;
+
+    @ManyToMany
+    private List<NationalTeam> nationalTeams;
 }
 
