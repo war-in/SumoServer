@@ -1,5 +1,6 @@
 package com.sumo.server.Database.StaticData.City;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sumo.server.Database.StaticData.Country.Country;
 import com.sumo.server.Database.CompetitionData.Competition.Competition;
 import lombok.Getter;
@@ -25,5 +26,6 @@ public class City {
 
     @ManyToOne
     @JoinColumn(name = "COUNTRY")
+    @JsonBackReference
     private Country country;
 }
