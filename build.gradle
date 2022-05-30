@@ -40,6 +40,10 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.3'
+    testImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.3'
+
+
 }
 
 tasks.named('test') {

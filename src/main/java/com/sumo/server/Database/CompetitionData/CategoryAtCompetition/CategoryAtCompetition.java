@@ -5,7 +5,9 @@ import com.sumo.server.Database.CompetitionData.Competition.Competition;
 import com.sumo.server.Database.FightData.Draw.Draw;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamAdmin.CompetitorRegistrationByNationalTeamAdmin;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamCoach.CompetitorRegistrationByNationalTeamCoach;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -16,12 +18,14 @@ import java.util.Set;
 @Table(name = "CATEGORIES_AT_COMPETITIONS")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CategoryAtCompetition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "CATEGORY_AT_COMPETITION_ID")
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "COMPETITION_ID")
