@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository
 public interface PersonalDetailsRepository extends JpaRepository<PersonalDetails, Long> {
-    List<PersonalDetails> findAll();
-    PersonalDetails getById(Long id);
+    PersonalDetails findPersonalDetailsById(Long id);
+    List<PersonalDetails> getAllByNameAndSurname(String name, String surname);
 
 }
