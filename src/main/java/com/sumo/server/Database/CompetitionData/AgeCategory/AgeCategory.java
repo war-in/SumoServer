@@ -39,11 +39,6 @@ public class AgeCategory {
     private Region region;
 
     @JsonBackReference
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "ageCategories")
+    @ManyToMany(mappedBy = "ageCategories")
     List<CompetitionDetails> competitionDetails = new ArrayList<>();
 }

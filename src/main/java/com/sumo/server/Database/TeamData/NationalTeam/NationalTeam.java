@@ -33,11 +33,6 @@ public class NationalTeam {
     private Country country;
 
     @JsonBackReference
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "nationalTeams")
+    @ManyToMany(mappedBy = "nationalTeams")
     List<CompetitionDetails> competitionDetails = new ArrayList<>();
 }

@@ -147,13 +147,11 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public List<RegisteredCompetitorDetails> getPersonalDetailsForCompetition(Long id) {
         List<CategoryAtCompetition> categoryAtCompetitions = categoryAtCompetitionRepository.findAllByCompetition_Id(id);
-
         List<RegisteredCompetitorDetails> registeredCompetitorDetails = new ArrayList<>();
 
         for(CategoryAtCompetition cat : categoryAtCompetitions){
             Category category = cat.getCategory();
-
-            List<CompetitorRegistrationByNationalTeamAdmin> competitorsAtCategory = competitorRegistrationByNationalTeamAdminRepository.findAllByCategoryAtCompetition_Id(cat.getId());
+            List<CompetitorRegistrationByNationalTeamAdmin> competitorsAtCategory = competitorRegistrationByNationalTeamAdminRepository.findAllByCategoryAtCompetition_Id(category.getId());
             List<Competitor> competitors = competitorsAtCategory.stream().map(CompetitorRegistrationByNationalTeamAdmin::getCompetitor).toList();
             List<Country> countries = new ArrayList<>();
             for(Competitor competitor: competitors){

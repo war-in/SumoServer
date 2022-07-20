@@ -38,25 +38,17 @@ public class CompetitionDetails {
     private String linkToOrganisationalAnnouncement;
 
     @JsonManagedReference
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
-            name = "age_categories",
-            joinColumns ={@JoinColumn(name = "competition_details_id")},
+            name = "competition_details_age_categories",
+            joinColumns = {@JoinColumn(name = "competition_details_id")},
             inverseJoinColumns = {@JoinColumn(name = "age_category_id")})
     private List<AgeCategory> ageCategories = new ArrayList<>();
 
     @JsonManagedReference
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
-            name = "national_teams",
+            name = "competition_details_national_teams",
             joinColumns = {@JoinColumn(name = "COMPETITION_DETAILS_ID")},
             inverseJoinColumns = {@JoinColumn(name = "NATIONAL_TEAM_ID")})
     private List<NationalTeam> nationalTeams = new ArrayList<>();
