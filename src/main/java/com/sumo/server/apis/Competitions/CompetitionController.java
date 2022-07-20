@@ -1,10 +1,7 @@
 package com.sumo.server.apis.Competitions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sumo.server.Database.CompetitionData.Competition.Competition;
-import com.sumo.server.Database.CompetitionData.Competition.CompetitionJson;
 import com.sumo.server.Database.CompetitionData.Competition.CompetitionService;
-import com.sumo.server.Database.CompetitionData.Competition.CompetitionToJson;
 import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
 import com.sumo.server.Database.CompetitionData.CompetitionType.CompetitionType;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/competitions")
@@ -29,22 +25,12 @@ public class CompetitionController {
 
     @GetMapping()
     public ResponseEntity<List<Competition>> getCompetitions() {
-
         return ResponseEntity.ok().body(competitionService.getAllCompetitions());
     }
 
     @GetMapping("/all-events")
-    public ResponseEntity<List<CompetitionJson>> getCompetitionsJson() {
-        List<Competition> competitions = competitionService.getAllCompetitions();
-        List<CompetitionJson> competitionJsons = competitions.stream().map(competition -> {
-            try {
-                return CompetitionToJson.getCompetitionData(competition);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        }).toList();
-
-        return ResponseEntity.ok().body(competitionJsons);
+    public ResponseEntity<List<Competition>> getCompetitionsJson() {
+        return ResponseEntity.ok().body(competitionService.getAllCompetitions());
     }
 
     @PostMapping("/save")
