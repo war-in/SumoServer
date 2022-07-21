@@ -2,11 +2,10 @@ package com.sumo.server.Database.FightData.Fight;
 
 import com.sumo.server.Database.CompetitionData.Category.Category;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
 public class FightDetails {
     private PersonalDetails personalDetails1;
     private PersonalDetails personalDetails2;

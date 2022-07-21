@@ -6,10 +6,11 @@ import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
 
 @Entity
 @Table(name = "COMPETITIONS_DETAILS")

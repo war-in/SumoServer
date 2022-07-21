@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CompetitorRegistrationByNationalTeamAdminRepository extends JpaRepository<CompetitorRegistrationByNationalTeamAdmin, Integer> {
-    List<CompetitorRegistrationByNationalTeamAdmin> findAllByCategoryAtCompetition_Id(Long categoryAtCompetition_id);
+    List<CompetitorRegistrationByNationalTeamAdmin> findAllByCategoryAtCompetitionId(Long categoryAtCompetitionId);
 }

@@ -21,7 +21,6 @@ import com.sumo.server.Database.FightData.Fight.FightDetails;
 import com.sumo.server.Database.FightData.Fight.FightRepository;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamAdmin.CompetitorRegistrationByNationalTeamAdmin;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamAdmin.CompetitorRegistrationByNationalTeamAdminRepository;
-import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamCoach.CompetitorRegistrationByNationalTeamCoach;
 import com.sumo.server.Database.StaticData.Country.Country;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
@@ -29,11 +28,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+
 import javax.transaction.Transactional;
 
 @Service
@@ -50,7 +46,6 @@ public class CompetitionServiceImpl implements CompetitionService {
     final CompetitionTypeRepository competitionTypeRepository;
     final CompetitorRegistrationByNationalTeamAdminRepository competitorRegistrationByNationalTeamAdminRepository;
     final NationalTeamMembershipOfCompetitorRepository nationalTeamMembershipOfCompetitorRepository;
-
     final NationalTeamMembershipOfCompetitorService nationalTeamMembershipOfCompetitorService;
     final DrawRepository drawRepository;
     final FightRepository fightRepository;
@@ -66,6 +61,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         }
         return result != null;
     }
+
     @Override
     public Competition addDetailsToCompetition(Competition competition, CompetitionDetails competitionDetails, CompetitionType competitionType) {
         competition.setType(competitionType);
@@ -127,7 +123,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public Competition updateCompetition(Competition competition) {
-        if( competition.getDetails() != null){
+        if (competition.getDetails() != null) {
             competitionDetailsRepository.save(competition.getDetails());
         }
         return competitionRepository.save(competition);
@@ -146,32 +142,31 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public List<RegisteredCompetitorDetails> getPersonalDetailsForCompetition(Long id) {
-        List<CategoryAtCompetition> categoryAtCompetitions = categoryAtCompetitionRepository.findAllByCompetition_Id(id);
+        List<CategoryAtCompetition> categoryAtCompetitions = categoryAtCompetitionRepository.findAllByCompetitionId(id);
         List<RegisteredCompetitorDetails> registeredCompetitorDetails = new ArrayList<>();
 
-        for(CategoryAtCompetition cat : categoryAtCompetitions){
-            Category category = cat.getCategory();
-            List<CompetitorRegistrationByNationalTeamAdmin> competitorsAtCategory = competitorRegistrationByNationalTeamAdminRepository.findAllByCategoryAtCompetition_Id(category.getId());
-            List<Competitor> competitors = competitorsAtCategory.stream().map(CompetitorRegistrationByNationalTeamAdmin::getCompetitor).toList();
-            List<Country> countries = new ArrayList<>();
-            for(Competitor competitor: competitors){
-                Country country = nationalTeamMembershipOfCompetitorService.getCountryForCompetitor(competitor);
-                countries.add(country);
-            }
-            List<PersonalDetails> personalDetailsOfCompetitors = competitors.stream().map(Competitor::getPersonalDetails).toList();
+        categoryAtCompetitions.forEach(
+                catAt -> {
+                    Category category = catAt.getCategory();
+                    List<Competitor> competitors = competitorRegistrationByNationalTeamAdminRepository.findAllByCategoryAtCompetitionId(catAt.getId()).stream()
+                            .map(CompetitorRegistrationByNationalTeamAdmin::getCompetitor).toList();
+                    List<Country> countries = competitors.stream()
+                            .map(nationalTeamMembershipOfCompetitorService::getCountryForCompetitor).toList();
+                    List<PersonalDetails> personalDetailsOfCompetitors = competitors.stream()
+                            .map(Competitor::getPersonalDetails).toList();
 
-            int index = 0;
-            for (PersonalDetails personalDetails: personalDetailsOfCompetitors){
-                RegisteredCompetitorDetails registeredCompetitor = new RegisteredCompetitorDetails();
-                registeredCompetitor.setPersonalDetails(personalDetails);
-                registeredCompetitor.setCategory(category);
-                registeredCompetitor.setCountry(countries.get(index));
-                registeredCompetitorDetails.add(registeredCompetitor);
-                index ++;
-            }
+                    int index = 0;
+                    for (PersonalDetails personalDetails : personalDetailsOfCompetitors) {
+                        RegisteredCompetitorDetails registeredCompetitor = new RegisteredCompetitorDetails();
+                        registeredCompetitor.setPersonalDetails(personalDetails);
+                        registeredCompetitor.setCategory(category);
+                        registeredCompetitor.setCountry(countries.get(index));
+                        registeredCompetitorDetails.add(registeredCompetitor);
+                        index++;
+                    }
 
-
-        }
+                }
+        );
         return registeredCompetitorDetails;
 
     }
@@ -180,34 +175,37 @@ public class CompetitionServiceImpl implements CompetitionService {
     public List<FightDetails> getFightsDetailsForCompetition(Long id) {
         List<FightDetails> fightDetails = new ArrayList<>();
 
-        List<CategoryAtCompetition> categoryAtCompetitions = categoryAtCompetitionRepository.findAllByCompetition_Id(id);
-        for(CategoryAtCompetition categoryAtCompetition: categoryAtCompetitions){
-            Category category = categoryAtCompetition.getCategory();
+        List<CategoryAtCompetition> categoryAtCompetitions = categoryAtCompetitionRepository.findAllByCompetitionId(id);
 
-            List<Draw> draws = drawRepository.getAllByCategoryAtCompetition_Id(categoryAtCompetition.getId());
-            for (Draw draw: draws){
-                List<Fight> fights = fightRepository.findAllByDraw_Id(draw.getId());
-                for (Fight fight: fights){
-                    FightDetails fightDetails1 = new FightDetails();
+        categoryAtCompetitions.forEach(
+                categoryAtCompetition -> {
+                    Category category = categoryAtCompetition.getCategory();
 
-                    PersonalDetails personalDetails = fight.getFirstCompetitor().getPersonalDetails();
-                    PersonalDetails personalDetails1 = fight.getSecondCompetitor().getPersonalDetails();
+                    List<Draw> draws = drawRepository.getAllByCategoryAtCompetitionId(categoryAtCompetition.getId());
+                    draws.forEach(draw -> {
+                        List<Fight> fights = fightRepository.findAllByDrawId(draw.getId());
 
-                    boolean firstWin = fight.isWinner();
+                        fights.forEach(fight -> {
+                            FightDetails fightDetails1 = new FightDetails();
 
-                    int round = fight.getNumberOfPlaceInDraw();
+                            PersonalDetails personalDetails = fight.getFirstCompetitor().getPersonalDetails();
+                            PersonalDetails personalDetails1 = fight.getSecondCompetitor().getPersonalDetails();
 
-                    fightDetails1.setPersonalDetails1(personalDetails);
-                    fightDetails1.setPersonalDetails2(personalDetails1);
-                    fightDetails1.setFirstWin(firstWin);
-                    fightDetails1.setRound(round);
-                    fightDetails1.setCategory(category);
+                            boolean firstWin = fight.isWinner();
 
-                    fightDetails.add(fightDetails1);
+                            int round = fight.getNumberOfPlaceInDraw();
 
+                            fightDetails1.setPersonalDetails1(personalDetails);
+                            fightDetails1.setPersonalDetails2(personalDetails1);
+                            fightDetails1.setFirstWin(firstWin);
+                            fightDetails1.setRound(round);
+                            fightDetails1.setCategory(category);
+
+                            fightDetails.add(fightDetails1);
+                        });
+                    });
                 }
-            }
-        }
+        );
         return fightDetails;
     }
 

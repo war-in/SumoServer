@@ -37,7 +37,7 @@ public class NationalTeamMembershipOfCompetitorServiceImpl implements NationalTe
 
     @Override
     public Country getCountryForCompetitor(Competitor competitor) {
-        NationalTeamMembershipOfCompetitor nationalTeamMembershipOfCompetitor = nationalTeamMembershipOfCompetitorRepository.getNationalTeamMembershipOfCompetitorByCompetitor_Id(competitor.getId());
+        NationalTeamMembershipOfCompetitor nationalTeamMembershipOfCompetitor = nationalTeamMembershipOfCompetitorRepository.getNationalTeamMembershipOfCompetitorByCompetitorId(competitor.getId());
         return nationalTeamMembershipOfCompetitor.getNationalTeam().getCountry();
     }
 

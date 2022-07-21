@@ -3,11 +3,9 @@ package com.sumo.server.Database.CompetitorData.Competitor;
 import com.sumo.server.Database.CompetitionData.Category.Category;
 import com.sumo.server.Database.StaticData.Country.Country;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class RegisteredCompetitorDetails {
     private PersonalDetails personalDetails;
     private Country country;

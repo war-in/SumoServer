@@ -37,5 +37,6 @@ public interface CompetitionService {
     Competition getCompetitionById(Long id);
 
     List<RegisteredCompetitorDetails> getPersonalDetailsForCompetition(Long id);
+
     List<FightDetails> getFightsDetailsForCompetition(Long id);
 }
