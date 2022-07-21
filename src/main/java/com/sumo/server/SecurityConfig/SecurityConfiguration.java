@@ -40,12 +40,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //        narazie mamy tutaj takie demu uprawnień, dokładnie określimy to po ustaleniu szczegółów
-        http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**", "/competitors/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**", "/competitors/**", "/national-teams/**").permitAll();
 //        działa to tak że piszemy jaki request idzie, na jaki endpoint i które uprawnienie trzeba mieć żeby się tam dobrać
         http.authorizeRequests().antMatchers(GET,"/api/user/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(GET,"/competitions/**").permitAll();
-        http.authorizeRequests().antMatchers(POST,"/competitions/**").permitAll();
-        http.authorizeRequests().antMatchers(POST,"/api/user/save").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/competitions/**").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/national-teams/**").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/competitions/**").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/national-teams/**").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/api/user/save").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
