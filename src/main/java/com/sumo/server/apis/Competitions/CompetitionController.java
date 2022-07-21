@@ -6,6 +6,7 @@ import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDe
 import com.sumo.server.Database.CompetitionData.CompetitionType.CompetitionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ public class CompetitionController {
 
     @GetMapping()
     public ResponseEntity<List<Competition>> getCompetitions() {
+        SecurityContextHolder.getContext();
         return ResponseEntity.ok().body(competitionService.getAllCompetitions());
     }
 

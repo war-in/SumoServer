@@ -27,7 +27,6 @@ public class NationalTeamController {
     }
     @GetMapping("/country/{country}")
     public ResponseEntity<NationalTeam> getNationalTeamByCountry(@PathVariable Country country){
-        System.out.println(country);
         return ResponseEntity.ok().body(nationalTeamService.getNationalTeamByCountry(country));
     }
 }

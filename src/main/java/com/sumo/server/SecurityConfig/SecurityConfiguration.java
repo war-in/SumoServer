@@ -44,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        działa to tak że piszemy jaki request idzie, na jaki endpoint i które uprawnienie trzeba mieć żeby się tam dobrać
         http.authorizeRequests().antMatchers(GET,"/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(GET,"/competitions/**").permitAll();
+        http.authorizeRequests().antMatchers(GET,"/authorizationDetails").permitAll();
         http.authorizeRequests().antMatchers(POST,"/competitions/**").permitAll();
         http.authorizeRequests().antMatchers(POST,"/api/user/save").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
