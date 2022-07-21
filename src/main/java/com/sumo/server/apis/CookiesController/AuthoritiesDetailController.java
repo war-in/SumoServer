@@ -8,6 +8,7 @@ import com.sumo.server.Database.TeamData.Club.Club;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsRepository;
 import com.sumo.server.Database.userData.User.User;
 import com.sumo.server.Database.userData.User.UserRepository;
+import com.sumo.server.Database.userData.User.UserService;
 import com.sumo.server.Seciurity.RolesInSystem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +26,13 @@ import java.util.HashSet;
 @RequiredArgsConstructor
 public class AuthoritiesDetailController {
 
-    private final CoachRepository coachRepository;
-    private final PersonalDetailsRepository personalDetailsRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final CoachService coachService;
+
     @GetMapping()
     public ResponseEntity<AuthorizationDetails> getAuthoritiesDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername(authentication.getPrincipal().toString());
+        User user = userService.getUser(authentication.getPrincipal().toString());
         AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<String>(), new HashSet<String>(), new HashSet<>());
         authentication.getAuthorities().forEach(grantedAuthority -> updateAuthorizationDetails(RolesInSystem.valueOf(grantedAuthority.getAuthority()), authorizationDetails, user));
         return ResponseEntity.ok().body(authorizationDetails);

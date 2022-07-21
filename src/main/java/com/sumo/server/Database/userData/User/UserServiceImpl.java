@@ -83,4 +83,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public PersonalDetails savePersonalDetails(PersonalDetails personalDetails) {
         return personalDetailsRepository.save(personalDetails);
     }
+
 }
