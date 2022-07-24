@@ -36,6 +36,11 @@ public class CompetitionController {
         return ResponseEntity.ok().body(competitionService.getFightsDetailsForCompetition(id));
     }
 
+    @GetMapping("/all-events")
+    public ResponseEntity<List<Competition>> getCompetitionsJson() {
+        return ResponseEntity.ok().body(competitionService.getAllCompetitions());
+    }
+
     @PostMapping("/save")
     public ResponseEntity<Competition> saveCompetition(@RequestBody Competition competition) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competition/save").toUriString());
