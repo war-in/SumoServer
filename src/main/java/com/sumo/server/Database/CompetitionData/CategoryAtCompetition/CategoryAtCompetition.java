@@ -34,4 +34,9 @@ public class CategoryAtCompetition {
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
+
+    @Override
+    public String toString(){
+        return id +  "competition_id " + competition.getId() + "category_id :" + category.getId();
+    }
 }

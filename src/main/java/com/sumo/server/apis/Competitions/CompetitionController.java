@@ -4,14 +4,10 @@ import com.sumo.server.Database.CompetitionData.Competition.Competition;
 import com.sumo.server.Database.CompetitionData.Competition.CompetitionService;
 import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
 import com.sumo.server.Database.CompetitionData.CompetitionType.CompetitionType;
+import com.sumo.server.Database.CompetitorData.Competitor.RegisteredCompetitorDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -26,6 +22,18 @@ public class CompetitionController {
     @GetMapping()
     public ResponseEntity<List<Competition>> getCompetitions() {
         return ResponseEntity.ok().body(competitionService.getAllCompetitions());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Competition> getCompetitionDetails(@PathVariable Long id){
+      return ResponseEntity.ok().body(competitionService.getCompetitionById(id));
+    }
+    @GetMapping("/registered-competitors/{id}")
+    public ResponseEntity<List<RegisteredCompetitorDetails>> getCompetitorsDetails(@PathVariable Long id){
+        return ResponseEntity.ok().body(competitionService.getPersonalDetailsForCompetition(id));
+    }
+    @GetMapping("/fights/{id}")
+    public ResponseEntity<Object> getFightsOnCompetition(@PathVariable Long id){
+        return ResponseEntity.ok().body(competitionService.getFightsDetailsForCompetition(id));
     }
 
     @PostMapping("/save")

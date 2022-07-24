@@ -1,5 +1,6 @@
 package com.sumo.server.Database.StaticData.Country;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sumo.server.Database.StaticData.City.City;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
@@ -21,7 +22,7 @@ public class Country {
     private String country;
 
     @OneToMany(mappedBy = "country")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<City> cities = new LinkedHashSet<>();
 
 }
