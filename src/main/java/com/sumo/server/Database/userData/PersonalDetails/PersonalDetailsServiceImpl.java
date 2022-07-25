@@ -19,4 +19,9 @@ public class PersonalDetailsServiceImpl implements PersonalDetailsService{
     public List<PersonalDetails> getAllByNameAndSurname(String name, String surname) {
         return personalDetailsRepository.getAllByNameAndSurname(name, surname);
     }
+
+    @Override
+    public PersonalDetails save(PersonalDetails personalDetails) {
+        return personalDetailsRepository.save(personalDetails);
+    }
 }

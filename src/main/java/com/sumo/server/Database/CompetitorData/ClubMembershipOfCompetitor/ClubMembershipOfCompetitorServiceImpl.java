@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +40,15 @@ public class ClubMembershipOfCompetitorServiceImpl implements ClubMembershipOfCo
     @Override
     public List<ClubMembershipOfCompetitor> getAll() {
         return clubMembershipOfCompetitorRepository.findAll();
+    }
+
+
+    @Override
+    public ClubMembershipOfCompetitor connectCompetitorWithClub(Competitor competitor, Club club, LocalDate startMembershipDate) {
+        ClubMembershipOfCompetitor clubMembership = new ClubMembershipOfCompetitor();
+        clubMembership.setClub(club);
+        clubMembership.setCompetitor(competitor);
+        clubMembership.setMembershipStart(startMembershipDate);
+        return clubMembershipOfCompetitorRepository.save(clubMembership);
     }
 }
