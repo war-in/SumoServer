@@ -1,7 +1,9 @@
 package com.sumo.server.Database.StaticData.Country;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.StaticData.City.City;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import lombok.Getter;
@@ -15,6 +17,9 @@ import java.util.Set;
 @Table(name = "COUNTRIES")
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.None.class,
+        property = "country",
+        scope = Country.class)
 public class Country {
 
     @Id
@@ -22,7 +27,8 @@ public class Country {
     private String country;
 
     @OneToMany(mappedBy = "country")
-    @JsonBackReference
+    //@JsonBackReference
+    //problem z JsonBackReference przy próbie zapisu
     private Set<City> cities = new LinkedHashSet<>();
 
 }

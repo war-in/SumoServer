@@ -1,6 +1,8 @@
 package com.sumo.server.Database.CompetitionData.AgeCategory;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.CompetitionData.Category.Category;
 import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
 import com.sumo.server.Database.StaticData.Region.Region;
@@ -18,6 +20,9 @@ import java.util.Set;
 @Table(name = "AGE_CATEGORIES")
 @Setter
 @Getter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope = AgeCategory.class)
 public class AgeCategory {
 
     @Id
@@ -38,7 +43,6 @@ public class AgeCategory {
     @JoinColumn(name = "REGION")
     private Region region;
 
-    @JsonBackReference
     @ManyToMany(mappedBy = "ageCategories")
     List<CompetitionDetails> competitionDetails = new ArrayList<>();
 }
