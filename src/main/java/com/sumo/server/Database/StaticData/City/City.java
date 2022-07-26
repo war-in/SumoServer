@@ -1,17 +1,13 @@
 package com.sumo.server.Database.StaticData.City;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.StaticData.Country.Country;
-import com.sumo.server.Database.CompetitionData.Competition.Competition;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "CITIES")

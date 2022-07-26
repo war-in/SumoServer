@@ -2,6 +2,7 @@ package com.sumo.server.Database.CompetitionData.AgeCategory;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.CompetitionData.Category.Category;
 import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
@@ -44,5 +45,6 @@ public class AgeCategory {
     private Region region;
 
     @ManyToMany(mappedBy = "ageCategories")
+    @JsonIgnoreProperties("ageCategories")
     List<CompetitionDetails> competitionDetails = new ArrayList<>();
 }

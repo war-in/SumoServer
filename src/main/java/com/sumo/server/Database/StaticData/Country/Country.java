@@ -1,11 +1,9 @@
 package com.sumo.server.Database.StaticData.Country;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.StaticData.City.City;
-import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import lombok.Getter;
 import lombok.Setter;
 

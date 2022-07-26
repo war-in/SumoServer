@@ -1,5 +1,8 @@
 package com.sumo.server.Database.CompetitionData.Competition;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.sumo.server.Database.CompetitionData.AgeCategory.AgeCategory;
 import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
 import com.sumo.server.Database.CompetitionData.CompetitionType.CompetitionType;
 import com.sumo.server.Database.StaticData.City.City;
@@ -22,6 +25,9 @@ import javax.persistence.Table;
 @Table(name = "COMPETITIONS")
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope = Competition.class)
 public class Competition {
 
     @Id

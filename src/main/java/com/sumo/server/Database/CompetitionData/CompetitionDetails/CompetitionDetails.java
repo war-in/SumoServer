@@ -1,6 +1,7 @@
 package com.sumo.server.Database.CompetitionData.CompetitionDetails;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.CompetitionData.AgeCategory.AgeCategory;
@@ -18,9 +19,6 @@ import java.util.List;
 @Table(name = "COMPETITIONS_DETAILS")
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = CompetitionDetails.class)
 public class CompetitionDetails {
 
     @Id
@@ -48,6 +46,7 @@ public class CompetitionDetails {
             name = "competition_details_age_categories",
             joinColumns = {@JoinColumn(name = "competition_details_id")},
             inverseJoinColumns = {@JoinColumn(name = "age_category_id")})
+    @JsonIgnoreProperties("competitionDetails")
     private List<AgeCategory> ageCategories = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -55,6 +54,7 @@ public class CompetitionDetails {
             name = "competition_details_national_teams",
             joinColumns = {@JoinColumn(name = "COMPETITION_DETAILS_ID")},
             inverseJoinColumns = {@JoinColumn(name = "NATIONAL_TEAM_ID")})
+    @JsonIgnoreProperties("competitionDetails")
     private List<NationalTeam> nationalTeams = new ArrayList<>();
 }
 
