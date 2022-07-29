@@ -5,12 +5,11 @@ import com.sumo.server.Database.CoachData.ClubMembershipOfCoach.ClubMembershipOf
 import com.sumo.server.Database.TeamData.Club.Club;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsRepository;
+import com.sumo.server.Time.TimeBean;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.ZoneId;
 import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +61,7 @@ public class CoachServiceImpl implements CoachService {
 
     @Override
     public List<Club> getClubAdministeredByCoach(Coach coach) {
-        ChronoLocalDate actualDate = ChronoLocalDate.from(Instant.ofEpochMilli(System.currentTimeMillis()).atZone(ZoneId.systemDefault()).toLocalDateTime());
-
+        ChronoLocalDate actualDate = TimeBean.getCurrentChrono();
         return clubMembershipOfCoachRepository.getClubMembershipOfCoachByCoach(coach).stream()
             .filter(membership -> (membership.getMembershipEnd() == null || (membership.getMembershipEnd().isAfter(actualDate) && membership.getMembershipStart().isBefore(actualDate))))
             .map(ClubMembershipOfCoach::getClub).toList();
