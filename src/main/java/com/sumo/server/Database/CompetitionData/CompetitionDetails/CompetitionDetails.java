@@ -41,6 +41,7 @@ public class CompetitionDetails {
     @Column(name = "LINK_TO_ORGANISATIONAL_ANNOUNCEMENT")
     private String linkToOrganisationalAnnouncement;
 
+
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "competition_details_age_categories",
@@ -48,6 +49,7 @@ public class CompetitionDetails {
             inverseJoinColumns = {@JoinColumn(name = "age_category_id")})
     @JsonIgnoreProperties("competitionDetails")
     private List<AgeCategory> ageCategories = new ArrayList<>();
+
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(

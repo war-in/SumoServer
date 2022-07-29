@@ -25,9 +25,6 @@ import javax.persistence.Table;
 @Table(name = "COMPETITIONS")
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = Competition.class)
 public class Competition {
 
     @Id

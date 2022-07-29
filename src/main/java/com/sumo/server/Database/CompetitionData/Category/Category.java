@@ -1,7 +1,10 @@
 package com.sumo.server.Database.CompetitionData.Category;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.CompetitionData.AgeCategory.AgeCategory;
 import com.sumo.server.Database.CompetitionData.CategoryAtCompetition.CategoryAtCompetition;
+import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
 import com.sumo.server.Database.StaticData.Sex.Sex;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +36,7 @@ public class Category {
     @JoinColumn(name = "SEX")
     private Sex sex;
 
+    //przenieść do category at competition.
     @Column(name = "DATE")
     private LocalDate date;
 }

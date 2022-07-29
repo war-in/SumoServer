@@ -13,9 +13,6 @@ import javax.persistence.*;
 @Table(name = "CITIES")
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = City.class)
 public class City {
 
     @Id
@@ -28,7 +25,5 @@ public class City {
 
     @ManyToOne
     @JoinColumn(name = "COUNTRY")
-    //@JsonManagedReference
-    //problem z tymi  adnotacjami przy próbie zapisu
     private Country country;
 }

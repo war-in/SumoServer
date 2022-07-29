@@ -21,9 +21,6 @@ import java.util.Set;
 @Table(name = "AGE_CATEGORIES")
 @Setter
 @Getter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = AgeCategory.class)
 public class AgeCategory {
 
     @Id
@@ -45,6 +42,6 @@ public class AgeCategory {
     private Region region;
 
     @ManyToMany(mappedBy = "ageCategories")
-    @JsonIgnoreProperties("ageCategories")
+    //@JsonIgnoreProperties("ageCategories")
     List<CompetitionDetails> competitionDetails = new ArrayList<>();
 }
