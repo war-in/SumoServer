@@ -2,6 +2,8 @@ package com.sumo.server.apis.CookiesController;
 
 import com.sumo.server.Database.CoachData.Coach.Coach;
 import com.sumo.server.Database.CoachData.Coach.CoachService;
+import com.sumo.server.Database.CoachData.NationalTeamMembershipOfCoach.NationalTeamMembershipOfCoach;
+import com.sumo.server.Database.CompetitionData.AgeCategory.AgeCategory;
 import com.sumo.server.Database.TeamData.Club.Club;
 import com.sumo.server.Database.userData.User.User;
 import com.sumo.server.Database.userData.User.UserService;
@@ -29,7 +31,7 @@ public class AuthoritiesDetailController {
     public ResponseEntity<AuthorizationDetails> getAuthoritiesDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUser(authentication.getPrincipal().toString());
-        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<RolesInSystem>(), new HashSet<Club>(), new HashSet<String>(), new HashSet<>());
+        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<RolesInSystem>(), new HashSet<Club>(), new HashSet<String>(), new HashSet<>(),new HashSet< AgeCategory >());
         authentication.getAuthorities().forEach(grantedAuthority -> {
             RolesInSystem role = RolesInSystem.valueOf(grantedAuthority.getAuthority());
             updateAuthorizationDetails(role, authorizationDetails, user);
@@ -39,14 +41,22 @@ public class AuthoritiesDetailController {
     }
 
     public void updateAuthorizationDetails(RolesInSystem role, AuthorizationDetails authorizationDetails, User user) {
+        Coach coach = coachService.getCoachesByPersonalDetails(user.getPersonalDetails());
+
         switch (role) {
             case CLUB_TRAINER -> {
-                Coach coach = coachService.getCoachesByPersonalDetails(user.getPersonalDetails());
                 coachService.getClubAdministeredByCoach(coach)
                     .forEach(club -> authorizationDetails.getAdministeredClubs().add(club));
             }
             // another cases will be implemented in another stories
-            case NATIONAL_TRAINER -> {}
+            case NATIONAL_TRAINER -> {
+                coachService.getNationalTeamsTrainedByCoach(coach)
+                        .forEach(nationalTeamMemberShip -> authorizationDetails.getAgeCategoriesTrainedByNationalCoach()
+                        .addAll(nationalTeamMemberShip.getCategoriesTrainedBy()));
+                coachService.getNationalTeamsTrainedByCoach(coach)
+                    .stream().map(NationalTeamMembershipOfCoach::getNationalTeam)
+                    .forEach(nationalTeam -> authorizationDetails.getTrainedNationalRepresentations().add(nationalTeam));
+            }
             case NATIONAL_ADMIN -> {}
             case IFS_ADMIN -> {}
             case SUPER_ADMIN -> {}

@@ -2,7 +2,10 @@ package com.sumo.server.Database.CoachData.Coach;
 
 import com.sumo.server.Database.CoachData.ClubMembershipOfCoach.ClubMembershipOfCoach;
 import com.sumo.server.Database.CoachData.ClubMembershipOfCoach.ClubMembershipOfCoachRepository;
+import com.sumo.server.Database.CoachData.NationalTeamMembershipOfCoach.NationalTeamMembershipOfCoach;
+import com.sumo.server.Database.CoachData.NationalTeamMembershipOfCoach.NationalTeamMembershipOfCoachRepository;
 import com.sumo.server.Database.TeamData.Club.Club;
+import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsRepository;
 import com.sumo.server.Time.TimeBean;
@@ -23,6 +26,7 @@ public class CoachServiceImpl implements CoachService {
 
     final CoachRepository coachRepository;
     final ClubMembershipOfCoachRepository clubMembershipOfCoachRepository;
+    final NationalTeamMembershipOfCoachRepository nationalTeamMembershipOfCoachRepository;
     final PersonalDetailsRepository personalDetailsRepository;
 
     @Override
@@ -65,5 +69,13 @@ public class CoachServiceImpl implements CoachService {
         return clubMembershipOfCoachRepository.getClubMembershipOfCoachByCoach(coach).stream()
             .filter(membership -> (membership.getMembershipEnd() == null || (membership.getMembershipEnd().isAfter(actualDate) && membership.getMembershipStart().isBefore(actualDate))))
             .map(ClubMembershipOfCoach::getClub).toList();
+    }
+
+    @Override
+    public List<NationalTeamMembershipOfCoach> getNationalTeamsTrainedByCoach(Coach coach) {
+        ChronoLocalDate actualDate = TimeBean.getCurrentChrono();
+        return nationalTeamMembershipOfCoachRepository.getNationalTeamMembershipOfCoachByCoach(coach).stream()
+            .filter(membership -> (membership.getMembershipEnd() == null || (membership.getMembershipEnd().isAfter(actualDate) && membership.getMembershipStart().isBefore(actualDate))))
+            .toList();
     }
 }
