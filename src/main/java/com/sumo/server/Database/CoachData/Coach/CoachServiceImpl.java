@@ -32,7 +32,7 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public List<Coach> getCoachesByPersonalDetails(List<PersonalDetails> personalDetails) {
+    public List<Coach> getCoachByPersonalDetails(List<PersonalDetails> personalDetails) {
         List<Coach> coaches = new ArrayList<>();
 
         for (PersonalDetails personalDetails1 : personalDetails) {
@@ -55,13 +55,13 @@ public class CoachServiceImpl implements CoachService {
         return result;
     }
     @Override
-    public Coach getCoachesByPersonalDetails(PersonalDetails personalDetails){
+    public Coach getCoachByPersonalDetails(PersonalDetails personalDetails){
         return coachRepository.findCoachByPersonalDetails(personalDetails);
     };
 
 
     @Override
-    public List<Club> getClubAdministeredByCoach(Coach coach) {
+    public List<Club> getClubsAdministeredByCoach(Coach coach) {
         ChronoLocalDate actualDate = ChronoLocalDate.from(Instant.ofEpochMilli(System.currentTimeMillis()).atZone(ZoneId.systemDefault()).toLocalDateTime());
 
         return clubMembershipOfCoachRepository.getClubMembershipOfCoachByCoach(coach).stream()
