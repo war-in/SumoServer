@@ -1,13 +1,9 @@
 package com.sumo.server.apis.CookiesController;
 
-import com.sumo.server.Database.CoachData.ClubMembershipOfCoach.ClubMembershipOfCoach;
 import com.sumo.server.Database.CoachData.Coach.Coach;
-import com.sumo.server.Database.CoachData.Coach.CoachRepository;
 import com.sumo.server.Database.CoachData.Coach.CoachService;
 import com.sumo.server.Database.TeamData.Club.Club;
-import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsRepository;
 import com.sumo.server.Database.userData.User.User;
-import com.sumo.server.Database.userData.User.UserRepository;
 import com.sumo.server.Database.userData.User.UserService;
 import com.sumo.server.Seciurity.RolesInSystem;
 import lombok.RequiredArgsConstructor;
@@ -41,15 +37,15 @@ public class AuthoritiesDetailController {
     public void updateAuthorizationDetails(RolesInSystem role, AuthorizationDetails authorizationDetails, User user) {
         switch (role) {
             case CLUB_TRAINER -> {
-                Coach coach = coachService.getCoachesByPersonalDetails(user.getPersonalDetails());
-                coachService.getClubAdministeredByCoach(coach).stream()
+                Coach coach = coachService.getCoachByPersonalDetails(user.getPersonalDetails());
+                coachService.getClubsAdministeredByCoach(coach).stream()
                     .map(Club::getName)
                     .forEach(club -> authorizationDetails.getAdministeredClubs().add(club));
             }
             // another cases will be implemented in another stories
             case NATIONAL_TRAINER -> {}
             case NATIONAL_ADMIN -> {}
-            case IFS_ADMIN -> {}
+            case EFS_ADMIN -> {}
             case SUPER_ADMIN -> {}
         }
     }
