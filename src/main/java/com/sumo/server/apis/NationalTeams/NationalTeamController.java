@@ -21,12 +21,12 @@ public class NationalTeamController {
 
 
     @GetMapping()
-    public ResponseEntity<List<NationalTeam>> getNationalTeams(){
-
+    public ResponseEntity<List<NationalTeam>> getNationalTeams() {
         return ResponseEntity.ok().body(nationalTeamService.getAllNationalTeams());
     }
+
     @GetMapping("/country/{country}")
-    public ResponseEntity<NationalTeam> getNationalTeamByCountry(@PathVariable Country country){
+    public ResponseEntity<NationalTeam> getNationalTeamByCountry(@PathVariable Country country) {
         return ResponseEntity.ok().body(nationalTeamService.getNationalTeamByCountry(country));
     }
 }
