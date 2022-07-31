@@ -4,6 +4,6 @@ public enum RolesInSystem {
     CLUB_TRAINER,
     NATIONAL_TRAINER,
     NATIONAL_ADMIN,
-    EFS_ADMIN,
+    ESF_ADMIN,
     SUPER_ADMIN
 }

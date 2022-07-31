@@ -45,7 +45,7 @@ public class AuthoritiesDetailController {
             // another cases will be implemented in another stories
             case NATIONAL_TRAINER -> {}
             case NATIONAL_ADMIN -> {}
-            case EFS_ADMIN -> {}
+            case ESF_ADMIN -> {}
             case SUPER_ADMIN -> {}
         }
     }
