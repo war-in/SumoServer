@@ -19,9 +19,9 @@ public class NationalTeamController {
 
     final NationalTeamService nationalTeamService;
 
-
     @GetMapping()
-    public ResponseEntity<List<NationalTeam>> getNationalTeams() {
+
+    public ResponseEntity<List<NationalTeam>> getNationalTeams(){
         return ResponseEntity.ok().body(nationalTeamService.getAllNationalTeams());
     }
 
