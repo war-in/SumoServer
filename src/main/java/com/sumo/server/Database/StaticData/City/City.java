@@ -1,7 +1,9 @@
 package com.sumo.server.Database.StaticData.City;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.StaticData.Country.Country;
 import com.sumo.server.Database.CompetitionData.Competition.Competition;
 import lombok.Getter;
@@ -15,6 +17,9 @@ import java.util.Set;
 @Table(name = "CITIES")
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope = City.class)
 public class City {
 
     @Id
@@ -27,6 +32,7 @@ public class City {
 
     @ManyToOne
     @JoinColumn(name = "COUNTRY")
-    @JsonManagedReference
+    //@JsonManagedReference
+    //problem z tymi  adnotacjami przy próbie zapisu
     private Country country;
 }

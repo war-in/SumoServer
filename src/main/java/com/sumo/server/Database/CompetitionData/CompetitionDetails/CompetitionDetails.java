@@ -1,6 +1,8 @@
 package com.sumo.server.Database.CompetitionData.CompetitionDetails;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.CompetitionData.AgeCategory.AgeCategory;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import lombok.Getter;
@@ -16,6 +18,9 @@ import java.util.List;
 @Table(name = "COMPETITIONS_DETAILS")
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope = CompetitionDetails.class)
 public class CompetitionDetails {
 
     @Id
@@ -38,7 +43,6 @@ public class CompetitionDetails {
     @Column(name = "LINK_TO_ORGANISATIONAL_ANNOUNCEMENT")
     private String linkToOrganisationalAnnouncement;
 
-    @JsonManagedReference
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "competition_details_age_categories",
@@ -46,7 +50,6 @@ public class CompetitionDetails {
             inverseJoinColumns = {@JoinColumn(name = "age_category_id")})
     private List<AgeCategory> ageCategories = new ArrayList<>();
 
-    @JsonManagedReference
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "competition_details_national_teams",
