@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "CATEGORIES_AT_COMPETITIONS")
@@ -30,8 +31,13 @@ public class CategoryAtCompetition {
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
+
+    //przeniesione z Category -> CategoryAtCompetition
+    @Column(name = "DATE")
+    private LocalDate date;
+
     @Override
-    public String toString(){
-        return id +  "competition_id " + competition.getId() + "category_id :" + category.getId();
+    public String toString() {
+        return id + "competition_id " + competition.getId() + "category_id :" + category.getId();
     }
 }

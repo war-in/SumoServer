@@ -36,7 +36,5 @@ public class Category {
     @JoinColumn(name = "SEX")
     private Sex sex;
 
-    //przenieść do category at competition.
-    @Column(name = "DATE")
-    private LocalDate date;
+
 }
