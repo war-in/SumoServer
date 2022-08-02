@@ -2,6 +2,7 @@ package com.sumo.server.Database.TeamData.NationalTeam;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
 import com.sumo.server.Database.NationalTeamAdminData.NationalTeamMembershipOfAdmin.NationalTeamMembershipOfAdmin;
@@ -23,9 +24,6 @@ import java.util.Set;
 @Table(name = "NATIONAL_TEAMS")
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = NationalTeam.class)
 public class NationalTeam {
 
     @Id
@@ -38,5 +36,6 @@ public class NationalTeam {
     private Country country;
 
     @ManyToMany(mappedBy = "nationalTeams")
+    //@JsonIgnoreProperties("nationalTeams")
     List<CompetitionDetails> competitionDetails = new ArrayList<>();
 }
