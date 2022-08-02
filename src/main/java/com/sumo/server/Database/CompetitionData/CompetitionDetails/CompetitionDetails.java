@@ -1,24 +1,26 @@
 package com.sumo.server.Database.CompetitionData.CompetitionDetails;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.CompetitionData.AgeCategory.AgeCategory;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "COMPETITIONS_DETAILS")
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope = CompetitionDetails.class)
 public class CompetitionDetails {
 
     @Id
@@ -41,10 +43,18 @@ public class CompetitionDetails {
     @Column(name = "LINK_TO_ORGANISATIONAL_ANNOUNCEMENT")
     private String linkToOrganisationalAnnouncement;
 
-    @ManyToMany
-    private List<AgeCategory> ageCategories;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "competition_details_age_categories",
+            joinColumns = {@JoinColumn(name = "competition_details_id")},
+            inverseJoinColumns = {@JoinColumn(name = "age_category_id")})
+    private List<AgeCategory> ageCategories = new ArrayList<>();
 
-    @ManyToMany
-    private List<NationalTeam> nationalTeams;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "competition_details_national_teams",
+            joinColumns = {@JoinColumn(name = "COMPETITION_DETAILS_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "NATIONAL_TEAM_ID")})
+    private List<NationalTeam> nationalTeams = new ArrayList<>();
 }
 

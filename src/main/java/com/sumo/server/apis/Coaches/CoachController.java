@@ -30,7 +30,7 @@ public class CoachController {
     @GetMapping("/{name}&{surname}")
     public ResponseEntity<List<Coach>> getCoachesByNameAndSurname(@PathVariable String name, @PathVariable String surname) {
         List<PersonalDetails> personalDetails = personalDetailsService.getAllByNameAndSurname(name, surname);
-        List<Coach> coaches = coachService.getCoachesByPersonalDetails(personalDetails);
+        List<Coach> coaches = coachService.getCoachByPersonalDetails(personalDetails);
         return ResponseEntity.ok().body(coaches);
     }
 }

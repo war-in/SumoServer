@@ -7,4 +7,6 @@ import java.util.List;
 public interface FightRepository extends JpaRepository<Fight, Integer> {
 
     Fight findById(Long id);
+
+    List<Fight> findAllByDrawId(long drawId);
 }
