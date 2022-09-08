@@ -1,12 +1,14 @@
 package com.sumo.server.Database.CoachData.NationalTeamMembershipOfCoach;
 
 import com.sumo.server.Database.CoachData.Coach.Coach;
+import com.sumo.server.Database.CompetitionData.AgeCategory.AgeCategory;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "NATIONAL_TEAM_MEMBERSHIPS_OF_COACHES")
@@ -32,4 +34,7 @@ public class NationalTeamMembershipOfCoach {
 
     @Column(name = "MEMBERSHIP_END")
     private LocalDate membershipEnd;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    List<AgeCategory> categoriesTrainedBy;
 }
