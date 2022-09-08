@@ -26,4 +26,11 @@ public class CompetitorRegistrationByNationalTeamCoachController {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competitor-registration-by-national-team-coach/save").toUriString());
         return ResponseEntity.created(uri).body(competitorRegistrationByNationalTeamCoachService.saveAll(competitorRegistrationRequests));
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<List<CompetitorRegistrationByNationalTeamCoach>> editCompetitorRegistrations(@RequestBody List<CompetitorRegistrationByNationalTeamCoach> competitorRegistrationRequests) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competitor-registration-by-national-team-coach/update").toUriString());
+        return ResponseEntity.created(uri).body(competitorRegistrationByNationalTeamCoachService.updateRegistrations(competitorRegistrationRequests));
+
+    }
 }
