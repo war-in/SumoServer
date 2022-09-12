@@ -79,7 +79,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     public Competition addCategoriesToCompetition(List<Category> categoryList, Competition competition) {
         List<CategoryAtCompetition> categoryAtCompetitions = new LinkedList<>();
         categoryList.forEach(category -> {
-            CategoryAtCompetition categoryAtCompetition = new CategoryAtCompetition(null, competition, category);
+            CategoryAtCompetition categoryAtCompetition = new CategoryAtCompetition(null, competition, category, null);
             try {
                 categoryAtCompetitionRepository.save(categoryAtCompetition);
 
