@@ -15,7 +15,7 @@ import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsService;
 import com.sumo.server.Database.userData.User.UserService;
 import com.sumo.server.Seciurity.RolesInSystem;
-import com.sumo.server.Time.TimeBean;
+import com.sumo.server.Time.TimeTranslator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -108,7 +108,7 @@ public class CompetitorController {
                 competitor.setPersonalDetails(personalDetailsFromDb);
                 competitor.setStatus(CompetitorsStatus.ACTIVE);
                 competitorService.save(competitor);
-                clubMembershipOfCompetitorService.connectCompetitorWithClub(competitor,club, TimeBean.getCurrentLocalDate());
+                clubMembershipOfCompetitorService.connectCompetitorWithClub(competitor,club, TimeTranslator.getCurrentLocalDate());
                 return ResponseEntity.created(uri).body(competitor);
             }
         }
