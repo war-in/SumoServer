@@ -14,6 +14,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -38,19 +41,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.csrf().disable();
+        http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //        narazie mamy tutaj takie demu uprawnień, dokładnie określimy to po ustaleniu szczegółów
-        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**", "/competitors/**", "/category/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**", "/competitors/**","/sex").permitAll();
 //        działa to tak że piszemy jaki request idzie, na jaki endpoint i które uprawnienie trzeba mieć żeby się tam dobrać
+        http.authorizeRequests().antMatchers(POST,"/api/user/addNew").permitAll();
         http.authorizeRequests().antMatchers(GET,"/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(GET, "/competitions/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/category/**").permitAll();
         http.authorizeRequests().antMatchers(POST, "/competitions/**").permitAll();
         http.authorizeRequests().antMatchers(POST, "/category/**").permitAll();
+
+
         http.authorizeRequests().antMatchers(POST, "/api/user/save").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
     }
 
     @Bean

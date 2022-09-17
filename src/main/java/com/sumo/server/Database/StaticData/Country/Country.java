@@ -1,15 +1,11 @@
 package com.sumo.server.Database.StaticData.Country;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sumo.server.Database.StaticData.City.City;
-import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
+
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "COUNTRIES")
@@ -21,8 +17,5 @@ public class Country {
     @Column(name = "COUNTRY")
     private String country;
 
-    @OneToMany(mappedBy = "country")
-    @JsonBackReference
-    private Set<City> cities = new LinkedHashSet<>();
 
 }

@@ -1,6 +1,9 @@
 package com.sumo.server.Database.TeamData.NationalTeam;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sumo.server.Database.CompetitionData.CompetitionDetails.CompetitionDetails;
 import com.sumo.server.Database.NationalTeamAdminData.NationalTeamMembershipOfAdmin.NationalTeamMembershipOfAdmin;
 import com.sumo.server.Database.RefereeData.NationalTeamMembershipOfReferee.NationalTeamMembershipOfReferee;
@@ -32,7 +35,7 @@ public class NationalTeam {
     @JoinColumn(name = "COUNTRY")
     private Country country;
 
-    @JsonBackReference
     @ManyToMany(mappedBy = "nationalTeams")
+    //@JsonIgnoreProperties("nationalTeams")
     List<CompetitionDetails> competitionDetails = new ArrayList<>();
 }

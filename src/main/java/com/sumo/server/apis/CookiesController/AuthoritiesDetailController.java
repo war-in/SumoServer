@@ -29,16 +29,20 @@ public class AuthoritiesDetailController {
     public ResponseEntity<AuthorizationDetails> getAuthoritiesDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUser(authentication.getPrincipal().toString());
-        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<String>(), new HashSet<String>(), new HashSet<>());
-        authentication.getAuthorities().forEach(grantedAuthority -> updateAuthorizationDetails(RolesInSystem.valueOf(grantedAuthority.getAuthority()), authorizationDetails, user));
+        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<RolesInSystem>(), new HashSet<Club>(), new HashSet<String>(), new HashSet<>());
+        authentication.getAuthorities().forEach(grantedAuthority -> {
+            RolesInSystem role = RolesInSystem.valueOf(grantedAuthority.getAuthority());
+            updateAuthorizationDetails(role, authorizationDetails, user);
+            authorizationDetails.getRoles().add(role);
+        });
         return ResponseEntity.ok().body(authorizationDetails);
     }
 
     public void updateAuthorizationDetails(RolesInSystem role, AuthorizationDetails authorizationDetails, User user) {
         switch (role) {
             case CLUB_TRAINER -> {
-                Coach coach = coachService.getCoachByPersonalDetails(user.getPersonalDetails());
-                coachService.getClubsAdministeredByCoach(coach).stream()
+                Coach coach = coachService.getCoachesByPersonalDetails(user.getPersonalDetails());
+                coachService.getClubAdministeredByCoach(coach).stream()
                     .map(Club::getName)
                     .forEach(club -> authorizationDetails.getAdministeredClubs().add(club));
             }
