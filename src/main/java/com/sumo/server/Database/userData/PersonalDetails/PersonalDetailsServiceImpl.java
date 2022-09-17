@@ -11,12 +11,19 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class PersonalDetailsServiceImpl implements PersonalDetailsService{
+public class PersonalDetailsServiceImpl implements PersonalDetailsService {
 
     final PersonalDetailsRepository personalDetailsRepository;
 
     @Override
     public List<PersonalDetails> getAllByNameAndSurname(String name, String surname) {
         return personalDetailsRepository.getAllByNameAndSurname(name, surname);
+    }
+
+    @Override
+    public PersonalDetails updateLinkToProfilePicture(long id, String link) {
+        PersonalDetails personalDetails = personalDetailsRepository.findPersonalDetailsById(id);
+        personalDetails.setLinkToProfilePicture(link);
+        return personalDetailsRepository.save(personalDetails);
     }
 }
