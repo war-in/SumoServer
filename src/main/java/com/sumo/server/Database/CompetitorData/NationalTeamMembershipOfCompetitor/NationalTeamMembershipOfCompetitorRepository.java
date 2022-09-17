@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface NationalTeamMembershipOfCompetitorRepository extends JpaRepository<NationalTeamMembershipOfCompetitor, Long> {
     List<NationalTeamMembershipOfCompetitor> getAllByNationalTeam(NationalTeam nationalTeam);
+
+    NationalTeamMembershipOfCompetitor getNationalTeamMembershipOfCompetitorByCompetitorId(Long competitorId);
 }

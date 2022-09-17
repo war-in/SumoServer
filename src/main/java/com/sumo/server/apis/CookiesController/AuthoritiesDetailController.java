@@ -42,13 +42,14 @@ public class AuthoritiesDetailController {
         switch (role) {
             case CLUB_TRAINER -> {
                 Coach coach = coachService.getCoachesByPersonalDetails(user.getPersonalDetails());
-                coachService.getClubAdministeredByCoach(coach)
+                coachService.getClubAdministeredByCoach(coach).stream()
+                    .map(Club::getName)
                     .forEach(club -> authorizationDetails.getAdministeredClubs().add(club));
             }
             // another cases will be implemented in another stories
             case NATIONAL_TRAINER -> {}
             case NATIONAL_ADMIN -> {}
-            case IFS_ADMIN -> {}
+            case ESF_ADMIN -> {}
             case SUPER_ADMIN -> {}
         }
     }

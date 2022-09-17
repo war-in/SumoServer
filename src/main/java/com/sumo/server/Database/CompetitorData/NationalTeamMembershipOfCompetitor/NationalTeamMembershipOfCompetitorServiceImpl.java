@@ -1,6 +1,7 @@
 package com.sumo.server.Database.CompetitorData.NationalTeamMembershipOfCompetitor;
 
 import com.sumo.server.Database.CompetitorData.Competitor.Competitor;
+import com.sumo.server.Database.StaticData.Country.Country;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,4 +34,13 @@ public class NationalTeamMembershipOfCompetitorServiceImpl implements NationalTe
 
         return currentNationalTeam;
     }
+
+    @Override
+    public Country getCountryForCompetitor(Competitor competitor) {
+        NationalTeamMembershipOfCompetitor nationalTeamMembershipOfCompetitor = nationalTeamMembershipOfCompetitorRepository.getNationalTeamMembershipOfCompetitorByCompetitorId(competitor.getId());
+        return nationalTeamMembershipOfCompetitor.getNationalTeam().getCountry();
+    }
+
+
+
 }

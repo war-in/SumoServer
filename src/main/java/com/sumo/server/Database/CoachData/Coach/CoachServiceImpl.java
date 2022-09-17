@@ -31,7 +31,7 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public List<Coach> getCoachesByPersonalDetails(List<PersonalDetails> personalDetails) {
+    public List<Coach> getCoachByPersonalDetails(List<PersonalDetails> personalDetails) {
         List<Coach> coaches = new ArrayList<>();
 
         for (PersonalDetails personalDetails1 : personalDetails) {
@@ -54,7 +54,7 @@ public class CoachServiceImpl implements CoachService {
         return result;
     }
     @Override
-    public Coach getCoachesByPersonalDetails(PersonalDetails personalDetails){
+    public Coach getCoachByPersonalDetails(PersonalDetails personalDetails){
         return coachRepository.findCoachByPersonalDetails(personalDetails);
     };
 
