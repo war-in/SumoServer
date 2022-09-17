@@ -36,6 +36,7 @@ public class CategoryAtCompetition {
     @Column(name = "DATE")
     private LocalDate date;
 
+
     @Override
     public String toString() {
         return id + "competition_id " + competition.getId() + "category_id :" + category.getId();
