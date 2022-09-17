@@ -21,6 +21,10 @@ public class PersonalDetailsServiceImpl implements PersonalDetailsService {
     }
 
     @Override
+    public PersonalDetails save(PersonalDetails personalDetails) {
+        return personalDetailsRepository.save(personalDetails);
+    }
+    @Override
     public PersonalDetails updateLinkToProfilePicture(long id, String link) {
         PersonalDetails personalDetails = personalDetailsRepository.findPersonalDetailsById(id);
         personalDetails.setLinkToProfilePicture(link);

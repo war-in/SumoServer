@@ -2,6 +2,7 @@ package com.sumo.server.Database.TeamData.Club;
 
 import com.sumo.server.Database.StaticData.City.City;
 import com.sumo.server.Database.CompetitorData.ClubMembershipOfCompetitor.ClubMembershipOfCompetitor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 @Table(name = "CLUBS")
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Club {
 
     @Id

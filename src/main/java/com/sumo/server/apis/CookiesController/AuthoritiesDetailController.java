@@ -29,8 +29,12 @@ public class AuthoritiesDetailController {
     public ResponseEntity<AuthorizationDetails> getAuthoritiesDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUser(authentication.getPrincipal().toString());
-        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<String>(), new HashSet<String>(), new HashSet<>());
-        authentication.getAuthorities().forEach(grantedAuthority -> updateAuthorizationDetails(RolesInSystem.valueOf(grantedAuthority.getAuthority()), authorizationDetails, user));
+        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<RolesInSystem>(), new HashSet<String>(), new HashSet<String>(), new HashSet<>());
+        authentication.getAuthorities().forEach(grantedAuthority -> {
+            RolesInSystem role = RolesInSystem.valueOf(grantedAuthority.getAuthority());
+            updateAuthorizationDetails(role, authorizationDetails, user);
+            authorizationDetails.getRoles().add(role);
+        });
         return ResponseEntity.ok().body(authorizationDetails);
     }
 
