@@ -100,8 +100,8 @@ public class CompetitorController {
 
         if (roles.contains(RolesInSystem.CLUB_TRAINER)){
             URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competitor/addNew").toUriString());
-            Coach coach = coachService.getCoachesByPersonalDetails(userService.getUser(userLogin).getPersonalDetails());
-            List<Club> clubsAdministratedBy = coachService.getClubAdministeredByCoach(coach);
+            Coach coach = coachService.getCoachByPersonalDetails(userService.getUser(userLogin).getPersonalDetails());
+            List<Club> clubsAdministratedBy = coachService.getClubsAdministeredByCoach(coach);
             if (clubsAdministratedBy.stream().anyMatch(c->c.getId() == club.getId())){
                 PersonalDetails personalDetailsFromDb = personalDetailsService.save(personalDetails);
                 Competitor competitor = new Competitor();

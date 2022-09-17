@@ -60,7 +60,7 @@ public class CoachServiceImpl implements CoachService {
 
 
     @Override
-    public List<Club> getClubAdministeredByCoach(Coach coach) {
+    public List<Club> getClubsAdministeredByCoach(Coach coach) {
         ChronoLocalDate actualDate = TimeTranslator.getCurrentChrono();
         return clubMembershipOfCoachRepository.getClubMembershipOfCoachByCoach(coach).stream()
             .filter(membership -> (membership.getMembershipEnd() == null || (membership.getMembershipEnd().isAfter(actualDate) && membership.getMembershipStart().isBefore(actualDate))))
