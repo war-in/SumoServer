@@ -5,6 +5,7 @@ import com.sumo.server.Database.CoachData.Coach.CoachService;
 import com.sumo.server.Database.CoachData.NationalTeamMembershipOfCoach.NationalTeamMembershipOfCoach;
 import com.sumo.server.Database.CompetitionData.AgeCategory.AgeCategory;
 import com.sumo.server.Database.TeamData.Club.Club;
+import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import com.sumo.server.Database.userData.User.User;
 import com.sumo.server.Database.userData.User.UserService;
 import com.sumo.server.Seciurity.RolesInSystem;
@@ -31,7 +32,7 @@ public class AuthoritiesDetailController {
     public ResponseEntity<AuthorizationDetails> getAuthoritiesDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUser(authentication.getPrincipal().toString());
-        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<RolesInSystem>(), new HashSet<Club>(), new HashSet<String>(), new HashSet<>());
+        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<RolesInSystem>(), new HashSet<String>(), new HashSet<String>(),new HashSet<NationalTeam>(), new HashSet<AgeCategory>());
         authentication.getAuthorities().forEach(grantedAuthority -> {
             RolesInSystem role = RolesInSystem.valueOf(grantedAuthority.getAuthority());
             updateAuthorizationDetails(role, authorizationDetails, user);
@@ -59,7 +60,7 @@ public class AuthoritiesDetailController {
                     .forEach(nationalTeam -> authorizationDetails.getTrainedNationalRepresentations().add(nationalTeam));
             }
             case NATIONAL_ADMIN -> {}
-            case IFS_ADMIN -> {}
+            case ESF_ADMIN -> {}
             case SUPER_ADMIN -> {}
         }
     }
