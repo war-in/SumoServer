@@ -8,7 +8,7 @@ import com.sumo.server.Database.TeamData.Club.Club;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsRepository;
-import com.sumo.server.Time.TimeBean;
+import com.sumo.server.Time.TimeTranslator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public List<Coach> getCoachesByPersonalDetails(List<PersonalDetails> personalDetails) {
+    public List<Coach> getCoachByPersonalDetails(List<PersonalDetails> personalDetails) {
         List<Coach> coaches = new ArrayList<>();
 
         for (PersonalDetails personalDetails1 : personalDetails) {
@@ -58,14 +58,14 @@ public class CoachServiceImpl implements CoachService {
         return result;
     }
     @Override
-    public Coach getCoachesByPersonalDetails(PersonalDetails personalDetails){
+    public Coach getCoachByPersonalDetails(PersonalDetails personalDetails){
         return coachRepository.findCoachByPersonalDetails(personalDetails);
     };
 
 
     @Override
-    public List<Club> getClubAdministeredByCoach(Coach coach) {
-        ChronoLocalDate actualDate = TimeBean.getCurrentChrono();
+    public List<Club> getClubsAdministeredByCoach(Coach coach) {
+        ChronoLocalDate actualDate = TimeTranslator.getCurrentChrono();
         return clubMembershipOfCoachRepository.getClubMembershipOfCoachByCoach(coach).stream()
             .filter(membership -> (membership.getMembershipEnd() == null || (membership.getMembershipEnd().isAfter(actualDate) && membership.getMembershipStart().isBefore(actualDate))))
             .map(ClubMembershipOfCoach::getClub).toList();

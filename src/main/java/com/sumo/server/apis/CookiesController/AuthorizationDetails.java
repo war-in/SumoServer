@@ -14,7 +14,7 @@ import java.util.Set;
 public class AuthorizationDetails {
     String user;
     Set<RolesInSystem> roles;
-    Set<Club> administeredClubs;
+    Set<String> administeredClubs;
     Set<String> administeredNationalRepresentations;
     Set<NationalTeam> trainedNationalRepresentations;
     Set<AgeCategory> ageCategoriesTrainedByNationalCoach;

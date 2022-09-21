@@ -18,7 +18,7 @@ public class SexController {
     private final SexService sexService;
 
     @GetMapping()
-    public ResponseEntity<List<Sex>> getNationalTeams(){
+    public ResponseEntity<List<Sex>> getSexes(){
         return ResponseEntity.ok().body(sexService.getAll());
     }
 }

@@ -15,7 +15,7 @@ import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsService;
 import com.sumo.server.Database.userData.User.UserService;
 import com.sumo.server.Seciurity.RolesInSystem;
-import com.sumo.server.Time.TimeBean;
+import com.sumo.server.Time.TimeTranslator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -100,15 +100,15 @@ public class CompetitorController {
 
         if (roles.contains(RolesInSystem.CLUB_TRAINER)){
             URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/competitor/addNew").toUriString());
-            Coach coach = coachService.getCoachesByPersonalDetails(userService.getUser(userLogin).getPersonalDetails());
-            List<Club> clubsAdministratedBy = coachService.getClubAdministeredByCoach(coach);
+            Coach coach = coachService.getCoachByPersonalDetails(userService.getUser(userLogin).getPersonalDetails());
+            List<Club> clubsAdministratedBy = coachService.getClubsAdministeredByCoach(coach);
             if (clubsAdministratedBy.stream().anyMatch(c->c.getId() == club.getId())){
                 PersonalDetails personalDetailsFromDb = personalDetailsService.save(personalDetails);
                 Competitor competitor = new Competitor();
                 competitor.setPersonalDetails(personalDetailsFromDb);
                 competitor.setStatus(CompetitorsStatus.ACTIVE);
                 competitorService.save(competitor);
-                clubMembershipOfCompetitorService.connectCompetitorWithClub(competitor,club, TimeBean.getCurrentLocalDate());
+                clubMembershipOfCompetitorService.connectCompetitorWithClub(competitor,club, TimeTranslator.getCurrentLocalDate());
                 return ResponseEntity.created(uri).body(competitor);
             }
         }

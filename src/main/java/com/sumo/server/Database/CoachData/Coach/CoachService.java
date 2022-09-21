@@ -11,11 +11,11 @@ public interface CoachService {
 
     List<Coach> getAllCoaches();
 
-    List<Coach> getCoachesByPersonalDetails(List<PersonalDetails> personalDetails);
+    List<Coach> getCoachByPersonalDetails(List<PersonalDetails> personalDetails);
 
-    Coach getCoachesByPersonalDetails(PersonalDetails personalDetails);
+    Coach getCoachByPersonalDetails(PersonalDetails personalDetails);
 
-    List<Club> getClubAdministeredByCoach(Coach coach);
+    List<Club> getClubsAdministeredByCoach(Coach coach);
 
     List<NationalTeamMembershipOfCoach> getNationalTeamsTrainedByCoach(Coach coach);
 

@@ -31,7 +31,7 @@ public class AuthoritiesDetailController {
     public ResponseEntity<AuthorizationDetails> getAuthoritiesDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUser(authentication.getPrincipal().toString());
-        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<RolesInSystem>(), new HashSet<Club>(), new HashSet<String>(), new HashSet<>(),new HashSet< AgeCategory >());
+        AuthorizationDetails authorizationDetails = new AuthorizationDetails(user.getUsername(), new HashSet<RolesInSystem>(), new HashSet<Club>(), new HashSet<String>(), new HashSet<>());
         authentication.getAuthorities().forEach(grantedAuthority -> {
             RolesInSystem role = RolesInSystem.valueOf(grantedAuthority.getAuthority());
             updateAuthorizationDetails(role, authorizationDetails, user);
@@ -41,15 +41,16 @@ public class AuthoritiesDetailController {
     }
 
     public void updateAuthorizationDetails(RolesInSystem role, AuthorizationDetails authorizationDetails, User user) {
-        Coach coach = coachService.getCoachesByPersonalDetails(user.getPersonalDetails());
-
         switch (role) {
             case CLUB_TRAINER -> {
-                coachService.getClubAdministeredByCoach(coach)
+                Coach coach = coachService.getCoachByPersonalDetails(user.getPersonalDetails());
+                coachService.getClubsAdministeredByCoach(coach).stream()
+                    .map(Club::getName)
                     .forEach(club -> authorizationDetails.getAdministeredClubs().add(club));
             }
             // another cases will be implemented in another stories
             case NATIONAL_TRAINER -> {
+                Coach coach = coachService.getCoachByPersonalDetails(user.getPersonalDetails());
                 coachService.getNationalTeamsTrainedByCoach(coach)
                         .forEach(nationalTeamMemberShip -> authorizationDetails.getAgeCategoriesTrainedByNationalCoach()
                         .addAll(nationalTeamMemberShip.getCategoriesTrainedBy()));
