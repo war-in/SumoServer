@@ -2,6 +2,8 @@ package com.sumo.server.Database.CoachData.Coach;
 
 import com.sumo.server.Database.CoachData.ClubMembershipOfCoach.ClubMembershipOfCoach;
 import com.sumo.server.Database.CoachData.ClubMembershipOfCoach.ClubMembershipOfCoachRepository;
+import com.sumo.server.Database.CoachData.NationalTeamMembershipOfCoach.NationalTeamMembershipOfCoach;
+import com.sumo.server.Database.CoachData.NationalTeamMembershipOfCoach.NationalTeamMembershipOfCoachRepository;
 import com.sumo.server.Database.TeamData.Club.Club;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetailsRepository;
@@ -23,6 +25,7 @@ public class CoachServiceImpl implements CoachService {
 
     final CoachRepository coachRepository;
     final ClubMembershipOfCoachRepository clubMembershipOfCoachRepository;
+    final NationalTeamMembershipOfCoachRepository nationalTeamMembershipOfCoachRepository;
     final PersonalDetailsRepository personalDetailsRepository;
 
     @Override
@@ -53,10 +56,13 @@ public class CoachServiceImpl implements CoachService {
         }
         return result;
     }
+
     @Override
-    public Coach getCoachByPersonalDetails(PersonalDetails personalDetails){
+    public Coach getCoachByPersonalDetails(PersonalDetails personalDetails) {
         return coachRepository.findCoachByPersonalDetails(personalDetails);
-    };
+    }
+
+    ;
 
 
     @Override
@@ -65,5 +71,17 @@ public class CoachServiceImpl implements CoachService {
         return clubMembershipOfCoachRepository.getClubMembershipOfCoachByCoach(coach).stream()
             .filter(membership -> (membership.getMembershipEnd() == null || (membership.getMembershipEnd().isAfter(actualDate) && membership.getMembershipStart().isBefore(actualDate))))
             .map(ClubMembershipOfCoach::getClub).toList();
+    }
+
+    @Override
+    public List<NationalTeamMembershipOfCoach> getCurrentNationalTeamsTrainedByCoach(Coach coach) {
+        ChronoLocalDate actualDate = TimeTranslator.getCurrentChrono();
+        return nationalTeamMembershipOfCoachRepository
+            .getNationalTeamMembershipOfCoachByCoach(coach).stream()
+            .filter(membership ->
+                (membership.getMembershipStart() != null) &&
+                (membership.getMembershipStart().isBefore(actualDate)) &&
+                (membership.getMembershipEnd() == null || membership.getMembershipEnd().isAfter(actualDate)))
+            .toList();
     }
 }
