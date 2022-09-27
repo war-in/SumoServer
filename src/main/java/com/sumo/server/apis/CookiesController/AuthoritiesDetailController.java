@@ -43,21 +43,21 @@ public class AuthoritiesDetailController {
 
     public void updateAuthorizationDetails(RolesInSystem role, AuthorizationDetails authorizationDetails, User user) {
         switch (role) {
-            case CLUB_TRAINER -> {
+            case CLUB_COACH -> {
                 Coach coach = coachService.getCoachByPersonalDetails(user.getPersonalDetails());
                 coachService.getClubsAdministeredByCoach(coach).stream()
                     .map(Club::getName)
                     .forEach(club -> authorizationDetails.getAdministeredClubs().add(club));
             }
             // another cases will be implemented in another stories
-            case NATIONAL_TRAINER -> {
+            case NATIONAL_COACH -> {
                 Coach coach = coachService.getCoachByPersonalDetails(user.getPersonalDetails());
-                coachService.getNationalTeamsTrainedByCoach(coach)
+                coachService.getCurrentNationalTeamsTrainedByCoach(coach)
                         .forEach(nationalTeamMemberShip -> authorizationDetails.getAgeCategoriesTrainedByNationalCoach()
                         .addAll(nationalTeamMemberShip.getCategoriesTrainedBy()));
-                coachService.getNationalTeamsTrainedByCoach(coach)
+                coachService.getCurrentNationalTeamsTrainedByCoach(coach)
                     .stream().map(NationalTeamMembershipOfCoach::getNationalTeam)
-                    .forEach(nationalTeam -> authorizationDetails.getTrainedNationalRepresentations().add(nationalTeam));
+                    .forEach(nationalTeam -> authorizationDetails.getTrainedNationalTeam().add(nationalTeam));
             }
             case NATIONAL_ADMIN -> {}
             case ESF_ADMIN -> {}
