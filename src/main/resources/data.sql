@@ -148,7 +148,6 @@ values (1, 15);
 INSERT INTO NATIONAL_TEAMS_ADMINS (national_team_admin_id, personal_details_id)
 values (2, 16);
 
-
 INSERT INTO COMPETITORS_REGISTRATIONS_BY_NATIONAL_TEAMS_ADMINS(COMPETITOR_REGISTRATION_BY_NATIONAL_TEAM_ADMIN_ID,
                                                                is_accepted_by_esf_admin, category_at_competition,
                                                                competitor_id, national_team_admin_id)
