@@ -14,6 +14,7 @@ public interface CompetitorService {
     List<Competitor> getCompetitorsByCountry(Country country, List<ClubMembershipOfCompetitor> allClubMembershipsOfCompetitors);
 
     Competitor save(Competitor competitor);
+    Competitor getCompetitorByPersonalDetails(PersonalDetails personalDetails);
 
     Competitor changeCompetitorsStatus(Competitor competitor);
 }

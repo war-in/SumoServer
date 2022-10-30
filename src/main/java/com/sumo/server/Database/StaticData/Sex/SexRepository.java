@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface SexRepository extends JpaRepository<Sex,Long>{
     List<Sex> getAllBy();
+
+    Sex getSexBySex(String sex);
 }

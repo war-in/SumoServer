@@ -1,12 +1,22 @@
 package com.sumo.server.Database.CompetitorData.NationalTeamMembershipOfCompetitor;
 
+import com.sumo.server.Database.CompetitionData.Category.Category;
 import com.sumo.server.Database.CompetitorData.Competitor.Competitor;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "NATIONAL_TEAM_MEMBERSHIPS_OF_COMPETITORS")
@@ -32,4 +42,9 @@ public class NationalTeamMembershipOfCompetitor {
 
     @Column(name = "MEMBERSHIP_END")
     private LocalDate membershipEnd;
+
+    @OneToOne
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
+
 }

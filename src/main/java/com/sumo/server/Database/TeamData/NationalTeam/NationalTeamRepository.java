@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NationalTeamRepository extends JpaRepository<NationalTeam, Integer> {
     NationalTeam findNationalTeamByCountryEquals(Country country);
+    NationalTeam findNationalTeamById(Long id);
 }

@@ -1,6 +1,5 @@
 package com.sumo.server.Database.CompetitorData.Competitor;
 
-import com.sumo.server.Database.CompetitionData.Competition.Competition;
 import com.sumo.server.Database.CompetitorData.ClubMembershipOfCompetitor.ClubMembershipOfCompetitor;
 import com.sumo.server.Database.StaticData.Country.Country;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
@@ -9,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +31,10 @@ public class CompetitorServiceImpl implements CompetitorService {
     @Override
     public List<Competitor> getCompetitorsByPersonalDetails(List<PersonalDetails> personalDetails) {
         List<Competitor> competitors = new ArrayList<>();
-        for(PersonalDetails pDetails: personalDetails) {
+        for (PersonalDetails pDetails : personalDetails) {
             competitors.add(competitorRepository.findCompetitorByPersonalDetails(pDetails));
         }
-
+        competitors = competitors.stream().filter(competitor -> Objects.nonNull(competitor)).collect(Collectors.toList());
         return competitors;
     }
 
@@ -41,8 +42,8 @@ public class CompetitorServiceImpl implements CompetitorService {
     public List<Competitor> getCompetitorsByCountry(Country country, List<ClubMembershipOfCompetitor> allClubMembershipsOfCompetitors) {
 
         return allClubMembershipsOfCompetitors.stream()
-                .filter(clubMembershipOfCompetitor -> clubMembershipOfCompetitor.getClub().getCity().getCountry() == country)
-                .map(ClubMembershipOfCompetitor::getCompetitor).toList();
+            .filter(clubMembershipOfCompetitor -> clubMembershipOfCompetitor.getClub().getCity().getCountry() == country)
+            .map(ClubMembershipOfCompetitor::getCompetitor).toList();
     }
 
     @Override
@@ -68,4 +69,8 @@ public class CompetitorServiceImpl implements CompetitorService {
         return competitorRepository.save(competitorFromDB);
     }
 
+    @Override
+    public Competitor getCompetitorByPersonalDetails(PersonalDetails personalDetails) {
+        return competitorRepository.findCompetitorByPersonalDetails(personalDetails);
+    }
 }

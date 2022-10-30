@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SexService {
     List<Sex> getAll();
+    Sex findSexByName(String sex);
 }

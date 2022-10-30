@@ -22,4 +22,9 @@ public class SexServiceImpl implements SexService {
     public List<Sex> getAll() {
         return sexRepository.getAllBy();
     }
+
+    @Override
+    public Sex findSexByName(String sex) {
+        return sexRepository.getSexBySex(sex);
+    }
 }

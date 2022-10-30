@@ -1,5 +1,6 @@
 package com.sumo.server.Database.userData.PersonalDetails;
 
+import com.sumo.server.Database.StaticData.Country.Country;
 import com.sumo.server.Database.StaticData.Sex.Sex;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -41,6 +42,10 @@ public class PersonalDetails {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "SEX")
     private Sex sex;
+
+    @ManyToOne
+    @JoinColumn(name = "COUNTRY")
+    private Country country;
 
     @Override
     public boolean equals(Object o) {

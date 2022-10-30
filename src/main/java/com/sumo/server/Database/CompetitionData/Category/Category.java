@@ -30,11 +30,9 @@ public class Category {
     private AgeCategory ageCategory;
 
     @Column(name = "WEIGHT_CATEGORY")
-    private int weightCategory;
+    private String weightCategory;
 
     @ManyToOne
     @JoinColumn(name = "SEX")
     private Sex sex;
-
-
 }

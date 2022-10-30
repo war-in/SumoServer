@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AgeCategoryRepository extends JpaRepository<AgeCategory, Integer> {
     List<AgeCategory> findAllBy();
+
+    AgeCategory getAgeCategoryById(long id);
 }

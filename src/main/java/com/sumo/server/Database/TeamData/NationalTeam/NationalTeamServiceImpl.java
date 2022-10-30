@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +26,10 @@ public class NationalTeamServiceImpl implements NationalTeamService {
         return nationalTeamRepository.findNationalTeamByCountryEquals(country);
     }
 
+    @Override
+    public NationalTeam getNationalTeamById(Long id) {
+        return nationalTeamRepository.findNationalTeamById(id);
+    }
 
     @Override
     public NationalTeam save(NationalTeam nationalTeam) {

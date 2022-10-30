@@ -8,6 +8,7 @@ public interface NationalTeamService {
 
     List<NationalTeam> getAllNationalTeams();
     NationalTeam getNationalTeamByCountry(Country country);
+    NationalTeam getNationalTeamById(Long id);
 
     NationalTeam save(NationalTeam nationalTeam);
 

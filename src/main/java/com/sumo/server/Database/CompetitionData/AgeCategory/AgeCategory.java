@@ -40,8 +40,4 @@ public class AgeCategory {
     @ManyToOne
     @JoinColumn(name = "REGION")
     private Region region;
-
-    @ManyToMany(mappedBy = "ageCategories")
-    //@JsonIgnoreProperties("ageCategories")
-    List<CompetitionDetails> competitionDetails = new ArrayList<>();
 }
