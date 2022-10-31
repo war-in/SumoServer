@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -27,13 +28,18 @@ import static org.springframework.http.HttpMethod.POST;
 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-   private final UserDetailsService userDetailsService;
-   private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserDetailsService userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
 
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui/**");
     }
 
     @Override
@@ -44,14 +50,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //        narazie mamy tutaj takie demu uprawnień, dokładnie określimy to po ustaleniu szczegółów
-        http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**", "/competitors/**","/sex","/competitor-registration-by-national-team-coach/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**", "/competitors/**", "/sex", "/competitor-registration-by-national-team-coach/**").permitAll();
 //        działa to tak że piszemy jaki request idzie, na jaki endpoint i które uprawnienie trzeba mieć żeby się tam dobrać
-        http.authorizeRequests().antMatchers(POST,"/api/user/addNew").permitAll();
-        http.authorizeRequests().antMatchers(GET,"/api/user/**").hasAnyAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers(POST, "/api/user/addNew").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(GET, "/competitions/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/competitor-registration-by-national-team-coach/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/competitors/**").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/profile-pictures/**").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/fights/**").permitAll();
+
+
         http.authorizeRequests().antMatchers(POST, "/competitions/**").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/profile-pictures/**").permitAll();
         http.authorizeRequests().antMatchers(POST, "/competitor-registration-by-national-team-coach/**").permitAll();
         http.authorizeRequests().antMatchers(POST, "/competitors/**").permitAll();
         http.authorizeRequests().antMatchers(POST, "/api/user/save").hasAnyAuthority("ROLE_ADMIN");
