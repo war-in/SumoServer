@@ -31,7 +31,7 @@ public class ProfilePictureServiceImpl implements ProfilePictureService {
     }
 
     @Override
-    public ProfilePicture getPicture(long id) {
+    public ProfilePicture getPicture(String id) {
         return profilePictureRepository.getById(id);
     }
 

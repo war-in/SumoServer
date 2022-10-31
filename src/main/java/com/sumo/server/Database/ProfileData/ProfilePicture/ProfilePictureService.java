@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public interface ProfilePictureService {
     ProfilePicture save(MultipartFile profilePicture, long personalDetailsId) throws IOException;
 
-    ProfilePicture getPicture(long id);
+    ProfilePicture getPicture(String id);
 
     ProfilePicture getPictureByPersonalId(long id);
 
