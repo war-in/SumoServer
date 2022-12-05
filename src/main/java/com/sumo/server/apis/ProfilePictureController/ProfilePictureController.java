@@ -64,7 +64,7 @@ public class ProfilePictureController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable long id) {
+    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         ProfilePicture profilePicture = profilePictureService.getPicture(id);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + profilePicture.getName() + "\"")
                 .body(profilePicture.getData());

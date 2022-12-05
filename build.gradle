@@ -45,7 +45,8 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3'
     testImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.3'
-
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+    implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.8'
 
 }
 

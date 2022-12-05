@@ -25,17 +25,4 @@ public class ServerApplication {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    CommandLineRunner run(UserService userService) {
-//        póki nie mamy nic w bazie tak dodaje użytkownika na start
-//        póki nie mamy żadnych userów w bazie testów też nie piszę
-        return args -> {
-//            userService.saveRole(new Role(null, "ROLE_USER"));
-//            PersonalDetails personalDetails = userService.savePersonalDetails(new PersonalDetails());
-//            userService.saveUser(new User(null, "Endriu1", "1234", new ArrayList<>(), null));
-//            userService.setUserPersonalDetails("Endriu1", personalDetails.getId());
-//            userService.addRoleToUser("Endriu1", "ROLE_USER");
-        };
-    }
-
 }

@@ -8,6 +8,7 @@ import com.sumo.server.Database.CompetitorData.Competitor.RegisteredCompetitorDe
 import com.sumo.server.Database.FightData.Fight.FightDetails;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
+import com.sumo.server.apis.Utils.Competition.CompetitionData;
 
 import java.util.List;
 
@@ -39,4 +40,6 @@ public interface CompetitionService {
     List<RegisteredCompetitorDetails> getPersonalDetailsForCompetition(Long id);
 
     List<FightDetails> getFightsDetailsForCompetition(Long id);
+
+    CompetitionData getCompetitionData(Long id);
 }

@@ -16,16 +16,21 @@ import com.sumo.server.Database.CompetitorData.NationalTeamMembershipOfCompetito
 import com.sumo.server.Database.CompetitorData.NationalTeamMembershipOfCompetitor.NationalTeamMembershipOfCompetitorService;
 import com.sumo.server.Database.FightData.Draw.Draw;
 import com.sumo.server.Database.FightData.Draw.DrawRepository;
+import com.sumo.server.Database.FightData.DrawType.DrawType;
 import com.sumo.server.Database.FightData.Fight.Fight;
 import com.sumo.server.Database.FightData.Fight.FightDetails;
 import com.sumo.server.Database.FightData.Fight.FightRepository;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamAdmin.CompetitorRegistrationByNationalTeamAdmin;
 import com.sumo.server.Database.RegistrationAndWeightData.CompetitorRegistrationByNationalTeamAdmin.CompetitorRegistrationByNationalTeamAdminRepository;
 import com.sumo.server.Database.StaticData.Country.Country;
+import com.sumo.server.Database.StaticData.Region.Region;
 import com.sumo.server.Database.TeamData.NationalTeam.NationalTeam;
 import com.sumo.server.Database.userData.PersonalDetails.PersonalDetails;
+import com.sumo.server.apis.Utils.Competition.CompetitionData;
+import com.sumo.server.apis.Utils.Competition.CompetitorRegistrationData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -207,6 +212,36 @@ public class CompetitionServiceImpl implements CompetitionService {
                 }
         );
         return fightDetails;
+    }
+
+    @Override
+    public CompetitionData getCompetitionData(Long id) {
+        Competition competition = this.getCompetitionById(id);
+        List<CategoryAtCompetition> categoriesAtCompetition = categoryAtCompetitionRepository.findAllByCompetitionId(competition.getId());
+        List<Category> categories = categoriesAtCompetition.stream().map(CategoryAtCompetition::getCategory).toList();
+        List<AgeCategory> ageCategories = categories.stream().map(Category::getAgeCategory).toList();
+        List<CompetitorRegistrationByNationalTeamAdmin> competitorRegistrationByNationalTeamAdmins = competitorRegistrationByNationalTeamAdminRepository.findAllByCategoryAtCompetitionId(id);
+
+        List<CompetitorRegistrationData> competitorRegistrationDataList = new ArrayList<>();
+        competitorRegistrationByNationalTeamAdmins.forEach(competitorRegistration -> {
+            CompetitorRegistrationData competitorRegistrationData = new CompetitorRegistrationData();
+            competitorRegistrationData.setCompetitor(competitorRegistration.getCompetitor());
+            competitorRegistrationData.setCategoryAtCompetition(competitorRegistration.getCategoryAtCompetition());
+
+            competitorRegistrationDataList.add(competitorRegistrationData);
+        });
+
+        List<Region> regions = new ArrayList<>();
+        ageCategories.forEach(ageCategory -> regions.add(ageCategory.getRegion()));
+
+        LinkedHashSet<Region> regionsNoDuplicate = new LinkedHashSet<>(regions);
+        ArrayList<Region> regionsWithoutDuplicate = new ArrayList<>(regionsNoDuplicate);
+
+        List<Draw> draws = new ArrayList<>();
+        categoriesAtCompetition.forEach(categoryAtCompetition -> draws.addAll(drawRepository.getAllByCategoryAtCompetitionId(categoryAtCompetition.getId())));
+        List<DrawType> drawTypes = draws.stream().map(Draw::getDrawType).toList();
+
+        return new CompetitionData(competition, competition.getType(), ageCategories, categories, categoriesAtCompetition, competitorRegistrationDataList, drawTypes, regionsWithoutDuplicate);
     }
 
 

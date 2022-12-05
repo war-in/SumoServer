@@ -23,11 +23,11 @@ public class Fight {
     private Draw draw;
 
     @ManyToOne
-    @JoinColumn(name = "FIRST_COMPETIROR_ID")
+    @JoinColumn(name = "FIRST_COMPETITOR_ID")
     private Competitor firstCompetitor;
 
     @ManyToOne
-    @JoinColumn(name = "SECOND_COMPETITOR")
+    @JoinColumn(name = "SECOND_COMPETITOR_ID")
     private Competitor secondCompetitor;
 
     @Column(name = "WINNER")

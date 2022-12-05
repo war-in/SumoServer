@@ -19,6 +19,7 @@ public class PersonalDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "PERSONAL_DETAILS_ID")
     private Long id;
 
     @Column(name = "NAME")
