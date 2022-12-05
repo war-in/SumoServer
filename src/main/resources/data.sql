@@ -161,6 +161,54 @@ INSERT INTO COMPETITORS_REGISTRATIONS_BY_NATIONAL_TEAMS_ADMINS(COMPETITOR_REGIST
                                                                competitor_id, national_team_admin_id)
 values (3, true, 1, 3, 2);
 
+-- adding roles to system
+
+INSERT INTO USER_ROLES (ROLE_ID, ROLE_NAME)
+VALUES (1, 'SUPER_ADMIN');
+INSERT INTO USER_ROLES (ROLE_ID, ROLE_NAME)
+VALUES (3, 'CLUB_COACH');
+INSERT INTO USER_ROLES (ROLE_ID, ROLE_NAME)
+VALUES (5, 'NATIONAL_COACH');
+INSERT INTO USER_ROLES (ROLE_ID, ROLE_NAME)
+VALUES (7, 'NATIONAL_ADMIN');
+INSERT INTO USER_ROLES (ROLE_ID, ROLE_NAME)
+VALUES (9, 'ESF_ADMIN');
+
+-- adding personal details
+INSERT INTO PERSONAL_DETAILS(personal_details_id, birth_date, email, link_to_profile_picture, name, phone_number, surname, sex)
+values (100, '2000-10-10', null, null, 'Andrzej', null, 'Jedynak', 'male');
+
+
+-- adding sample users
+
+INSERT INTO LOGIN_DETAILS (USER_ID, PASSWORD, USERNAME, PERSONAL_DETAILS_ID)
+VALUES (1, '$2a$10$jzyXBJ.QX8qbm.cu5dMiMu7TuTaoGTqRVCCD/2xdbSmlA0v9xLa42', 'Endriu1', 100);
+
+-- adding roles to users
+
+INSERT INTO LOGIN_DETAILS_ROLES(USER_USER_ID, ROLES_ROLE_ID)
+VALUES (1, 1);
+INSERT INTO LOGIN_DETAILS_ROLES(USER_USER_ID, ROLES_ROLE_ID)
+VALUES (1, 5);
+INSERT INTO LOGIN_DETAILS_ROLES(USER_USER_ID, ROLES_ROLE_ID)
+VALUES (1, 7);
+INSERT INTO LOGIN_DETAILS_ROLES(USER_USER_ID, ROLES_ROLE_ID)
+VALUES (1, 9);
+INSERT INTO LOGIN_DETAILS_ROLES(USER_USER_ID, ROLES_ROLE_ID)
+VALUES (1, 3);
+
+-- adding users to tables of roles
+INSERT INTO coaches(coach_id, personal_details_id)
+VALUES (5, 100);
+
+-- Creating national teams
+Insert INTO NATIONAL_TEAMS(NATIONAL_TEAM_ID, COUNTRY)
+VALUES (5, 'Poland');
+
+-- Creating national team membership for coach
+INSERT INTO NATIONAL_TEAM_MEMBERSHIPS_OF_COACHES(NATIONAL_TEAM_MEMBERSHIP_OF_COACH_ID, MEMBERSHIP_END, MEMBERSHIP_START,
+                                                 COACH_ID, NATIONAL_TEAM_ID)
+values (1, null, '2000-05-10',5,5);
 
 
 

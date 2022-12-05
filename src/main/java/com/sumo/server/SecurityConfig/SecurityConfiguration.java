@@ -37,10 +37,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui/**");
-    }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui/**");
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,9 +49,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        narazie mamy tutaj takie demu uprawnień, dokładnie określimy to po ustaleniu szczegółów
+//        na razie mamy tutaj takie demu uprawnień, dokładnie określimy to po ustaleniu szczegółów
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**", "/competitors/**", "/sex", "/competitor-registration-by-national-team-coach/**").permitAll();
-//        działa to tak że piszemy jaki request idzie, na jaki endpoint i które uprawnienie trzeba mieć żeby się tam dobrać
+//        działa to tak, że piszemy, jaki request idzie, na jaki endpoint i które uprawnienie trzeba mieć, żeby się tam dobrać
         http.authorizeRequests().antMatchers(POST, "/api/user/addNew").permitAll();
         http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(GET, "/competitions/**").permitAll();
@@ -59,7 +59,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(GET, "/competitors/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/profile-pictures/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/fights/**").permitAll();
-
+        http.authorizeRequests().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui/**").permitAll();
+//        http.authorizeRequests().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui/**").permitAll();
 
         http.authorizeRequests().antMatchers(POST, "/competitions/**").permitAll();
         http.authorizeRequests().antMatchers(POST, "/profile-pictures/**").permitAll();
