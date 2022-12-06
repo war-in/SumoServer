@@ -47,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**", "/competitors/**","/sex","/competitor-registration-by-national-team-coach/**","/swagger-ui/**","/category/**").permitAll();
 //        działa to tak że piszemy jaki request idzie, na jaki endpoint i które uprawnienie trzeba mieć żeby się tam dobrać
         http.authorizeRequests().antMatchers(POST,"/api/user/addNew").permitAll();
+        http.authorizeRequests().antMatchers(POST,"/national-teams/*").permitAll();
         http.authorizeRequests().antMatchers(GET,"/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(GET, "/competitions/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/competitor-registration-by-national-team-coach/**").permitAll();
